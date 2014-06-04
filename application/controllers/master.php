@@ -1,22 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Master extends CI_Controller {
-
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	function __construct()
 	{
 		
@@ -29,28 +13,56 @@ class Master extends CI_Controller {
 		$this->load->view('template');
 	}
 	
-	public function company($action="")
-	{
+	/* Ada beberapa nilai yang saya parsing ke dalam view
+		- view : adalah file yang akan di load kedalam div content
+		- data : adalah data yang akan saya parsing sesuai controllernya, jika di master company berarti saya melempar data company dari database
+		- structure : adalah susunan data yang saya tampilkan pada default / pada add , dengan otomatis yang tampil sesuai dengan structur yang saya parsing, ada 2 structure yang berbeda antara menampilkan dan mengedit data
+				> structure pada bagian add, merupakan array, keynya berupa name dan valuenya berupa tipe inputnya contoh namenya company, dan type inputnya adalah text;
+				> structure pada bagian default (menampilkan data) keynya berupa name dan valuenya berupa label atau text yang ditampilkan sebagai header data
+		- page : merupakan penentu action pada form ataupun sebagai title pada halaman,
 		
-		$company = $this->default_model->getData("master_company");
+		Note : file utama adalah template.php, dari sini data dilemparkan kembali kepada view yang menjadi tujuannya ditandai dengan parse['view'] diatas.
+	*/
+	public function company($action="",$id="")
+	{
+
+		$post = $this->input->post();
+		$action = (!empty($action) ? $action : (!empty($post['action']) ? $post['action'] : ""));
 		
 		switch($action)
 		{
 			case "add":
 				$view = "master/add";
-				$table = array("company"=>"text","address"=>"textarea");
+				$getdata = (!empty($id) ? $this->default_model->getData("master_company",array("id"=>$id)) : "");
+				$data = (!empty($getdata) ? $getdata[0] : "");
+				$structure = array("name"=>"text","address"=>"textarea","status"=>"statuslist");
+			break;
+			
+			case "delete":
+				if(!empty($id))
+				{
+					$this->default_model->delete("master_company",array("id"=>$id));
+					redirect(site_url("master/company"));
+				}
+			break;
+			
+			case "save":
+				$this->default_model->store("master_company",$post);
+				redirect(site_url("master/company"));
 			break;
 			
 			default:
 				$view = "master/default";
-				$table = array("company"=>"Company");
+				$data = $this->default_model->getData("master_company");
+				$structure = array("name"=>"Company","address"=>"Address","status"=>"Status");
 			break;
 		}
 		
 		$parse = array(
 			"view" => $view,
-			"viewdata" => $company,
-			"table" => $table
+			"data" => $data,
+			"structure" => $structure,
+			"page" => "master/company",
 		);
 		
 		$this->load->view('template',$parse);

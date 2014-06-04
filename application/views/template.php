@@ -1,3 +1,6 @@
+<?php
+	/* File ini merupakan container utama, dari sini view dipanggil kembali pada div content sesuai dengan view yang diparsing dari controller */
+?>
 <!Doctye html>
 <html>
 	<head>
@@ -19,7 +22,7 @@
 				<?php echo $this->load->view("include/navigasi"); ?>
 			</div>
 			<div class='content'>
-				<?php echo (!empty($view) ? $this->load->view($view,(!empty($dataview) ? $dataview : "")) : ""); ?>
+				<?php echo (!empty($view) ? $this->load->view($view) : ""); ?>
 			</div>
 		</div>
 	</body>

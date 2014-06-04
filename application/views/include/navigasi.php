@@ -11,10 +11,9 @@
 			</ul>
 		</a>
 	</li>
-	<li><?php echo anchor("master","Master"); ?></li>
-	<li><?php echo anchor("transaction","Transaction"); ?></li>
-	<li><?php echo anchor("accounting","Accounting"); ?></li>
-	<li><?php echo anchor("operasional","Operasional"); ?></li>
-	<li><?php echo anchor("report","Report"); ?></li>
+	<li><?php echo anchor("#","Transaction"); ?></li>
+	<li><?php echo anchor("#","Accounting"); ?></li>
+	<li><?php echo anchor("#","Operasional"); ?></li>
+	<li><?php echo anchor("#","Report"); ?></li>
 	<li class='pull-right'><?php echo anchor("users","Users"); ?></li>
 </ul>

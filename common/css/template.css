@@ -2,3 +2,10 @@
 {
 	width : auto;
 }
+
+.boxDashboard
+{
+	padding : 40px 20px;
+	text-align: center;
+	border : 1px solid #ccc;
+}

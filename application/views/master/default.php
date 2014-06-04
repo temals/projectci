@@ -4,30 +4,31 @@
 		<?php echo anchor("master/company/add","<button class='btn btn-success'>Add New</button>"); ?>
 	</div>
 	<?php 
+	
 	//mengecek apakah terdapat data
 	if(!empty($data)) { 
 	?>
 	
 	<table class='table table-striped'>
 		<thead>
-			<?php foreach($table as $th)
+			<?php foreach($structure as $th)
 			{
 				echo "<th>".$th."</th>";
 			}
+			echo "<th>action</th>";
 			?>
 		</thead>
 		<tbody>
 			<?php
-			foreach($data as $data)
+			foreach($data as $row)
 			{
-
-				foreach($table as $key=>$val)
+				echo "<tr>";
+				foreach($structure as $key=>$val)
 				{
-					echo "<td>";
-					echo "<th>".$data[$key]."</th>";
-					echo "<td>";
+					echo "<td>".$row[$key]."</td>";
 				}
-
+				echo "<td>".anchor($page."/add/".$row['id'],"Edit")." | ".anchor($page."/delete/".$row['id'],"Delete")."</td>";
+				echo "</tr>";	
 			}
 			?>
 		</tbody>
