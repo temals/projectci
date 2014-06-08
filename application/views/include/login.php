@@ -6,32 +6,33 @@
 	<head>
 		<title> ICS </title>
 		<?php 
-			echo "<script src='".base_url()."common/js/jquery-1.11.1.min.js'></script>";
-			echo "<script src='".base_url()."common/js/jquery.dataTables.js'></script>";
 			echo "<script src='".base_url()."common/js/bootstrap.js'></script>";
-			echo "<script src='".base_url()."common/js/ics.js'></script>";
 			echo link_tag(base_url().'common/css/bootstrap.css');
 			echo link_tag(base_url().'common/css/bootstrap-theme.css');
-			echo link_tag(base_url().'common/css/jquery.dataTables.css');
 			echo link_tag(base_url().'common/css/template.css');
 		?>
 	</head>
 	<body>
+		<center>
 		<div class='header'>
 			<div class='container'>
-				<?php echo $this->load->view("include/navigation"); ?>
+				<div class='logo text-left'>Integrated Cargo System</div>
 			</div>
 		</div>
+		<?php if(!empty($msg))
+		{
+			echo "<div class='alert alert-".(!empty($style) ? $style : "info")."'>".$msg."</div>";
+		}?>
 		<div class='content'>
-			<div class='container'>
-				<div class='row'>
-					<div class='col-md-10'>
-						<?php echo (!empty($view) ? $this->load->view($view) : ""); ?>
-					</div>
-					<div class='col-md-2'>
-						<?php echo $this->load->view("include/notification"); ?>
-					</div>
-				</div>
+			<div class='boxLogin boxContent'>
+				<h3>Administrator Login</h3>
+				<?php 
+					echo form_open("users/login");
+					echo form_input('username','',"class='form-control' placeholder='Username'");
+					echo form_password('password','',"class='form-control' placeholder='Password'");
+					echo form_submit("submit","Login","class='form-control btn btn-success'");
+					echo form_close(); 
+				?>
 			</div>
 		</div>
 		
@@ -40,5 +41,6 @@
 				Copyright &copy; 2014 | Inisial Group
 			</div>
 		</div>
+		</center>
 	</body>
 </html>

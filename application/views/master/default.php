@@ -1,8 +1,8 @@
-<div>
-	<h2 class='page-header'>Master</h2>
-	<div class='toolbar pull-right'>
-		<?php echo anchor("master/company/add","<button class='btn btn-success'>Add New</button>"); ?>
-	</div>
+<div class='boxContent row'>
+	<h2 class='pull-left'>Master Data</h2>
+	<div class='pull-right'><?php echo anchor("master/company/add","<button class='btn btn-success'>Add New</button>"); ?></div>
+</div>
+<div class='boxContent'>
 	<?php 
 	
 	//mengecek apakah terdapat data
