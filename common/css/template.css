@@ -32,12 +32,12 @@ body
 	padding : 10px;
 }
 
-.header .nav, .header .nav a, .header .nav .dropdown, .header .nav .dropdown-menu a, .logo a
+.header .nav, .header .nav a, .header .nav .dropdown, .logo a
 {
 	color : #fff;
 }
 
-.header .nav a:hover
+.header .nav a:hover, .header .dropdown-menu a
 {
 	color : #000;
 }

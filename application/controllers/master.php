@@ -34,7 +34,7 @@ class Master extends CI_Controller {
 			case "add":
 				$view = "master/add";
 				$getdata = (!empty($id) ? $this->default_model->getData("master_company",array("id"=>$id)) : "");
-				$data = (!empty($getdata) ? $getdata[0] : "");
+				$data = (!empty($getdata) ? $getdata : "");
 				$structure = array("name"=>"text","address"=>"textarea","status"=>"statuslist");
 			break;
 			
@@ -53,7 +53,7 @@ class Master extends CI_Controller {
 			
 			default:
 				$view = "master/default";
-				$data = $this->default_model->getData("master_company");
+				$data = $this->default_model->getData("master_company","","array");
 				$structure = array("name"=>"Company","address"=>"Address","status"=>"Status");
 			break;
 		}
@@ -63,6 +63,60 @@ class Master extends CI_Controller {
 			"data" => $data,
 			"structure" => $structure,
 			"page" => "master/company",
+		);
+		
+		$this->load->view('template',$parse);
+	}
+	
+	public function users($action="",$id="")
+	{
+
+		$post = $this->input->post();
+		$action = (!empty($action) ? $action : (!empty($post['action']) ? $post['action'] : ""));
+		
+		switch($action)
+		{
+			case "add":
+				$view = "master/add";
+				$getdata = (!empty($id) ? $this->default_model->getData("user",array("id"=>$id)) : "");
+				$data = (!empty($getdata) ? $getdata : "");
+				$structure = array(
+						"username"=>"text",
+						"password"=>
+							array("type"=>"password","value"=>"","placeHolder"=>"Masukkan Password untuk mengganti password lama"),
+						"name"=>"text",
+						"email"=>"text",
+						"user_type_id"=>array("type"=>"user_type_lists","privilege"=>"1"), //artinya hanya super users yang dapat mengedit jenis user atau jenis member
+						"status"=>array("type"=>"status_lists","privilege"=>"1,2") //hanya super users dan admin yang hanya bisa mengedit status
+					);
+			break;
+			
+			case "delete":
+				if(!empty($id))
+				{
+					$this->default_model->delete("user",array("id"=>$id));
+					redirect(site_url("master/users"));
+				}
+			break;
+			
+			case "save":
+				$post['password'] = md5($post['password']);
+				$this->default_model->store("user",$post);
+				redirect(site_url("master/users"));
+			break;
+			
+			default:
+				$view = "master/default";
+				$data = $this->default_model->getData("user","","array");
+				$structure = array("username"=>"Username","name"=>"Name","email"=>"Email","status"=>"Status");
+			break;
+		}
+		
+		$parse = array(
+			"view" => $view,
+			"data" => $data,
+			"structure" => $structure,
+			"page" => "master/users",
 		);
 		
 		$this->load->view('template',$parse);

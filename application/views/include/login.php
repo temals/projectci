@@ -28,11 +28,12 @@
 				<h3>Administrator Login</h3>
 				<?php 
 					echo form_open("users/login");
-					echo form_input('username','',"class='form-control' placeholder='Username'");
+					echo form_input('username','',"class='form-control' placeholder='Username / Email'".set_value('username'));
 					echo form_password('password','',"class='form-control' placeholder='Password'");
 					echo form_submit("submit","Login","class='form-control btn btn-success'");
 					echo form_close(); 
 				?>
+				<i><?php echo anchor("dashboard","Skip Login"); ?>
 			</div>
 		</div>
 		

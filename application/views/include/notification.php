@@ -1,3 +1,3 @@
 <div class='boxContent'>
-	No New Notification
+	<?php echo anchor("dashboard","Pembagian Tugas Project"); ?>
 </div>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 04 Jun 2014 pada 17.12
+-- Generation Time: 09 Jun 2014 pada 20.30
 -- Versi Server: 5.5.36
 -- PHP Version: 5.4.27
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `master_coa` (
 
 CREATE TABLE IF NOT EXISTS `master_company` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` enum('Pusat','Cabang') DEFAULT NULL,
+  `type` enum('Pusat','Cabang','Customer') DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `address` text,
   `npwp` varchar(45) DEFAULT NULL,
@@ -111,14 +111,14 @@ CREATE TABLE IF NOT EXISTS `master_company` (
   `bank` varchar(45) DEFAULT NULL,
   `status` enum('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data untuk tabel `master_company`
 --
 
 INSERT INTO `master_company` (`id`, `type`, `name`, `address`, `npwp`, `phone`, `mobile`, `fax`, `email`, `bank`, `status`) VALUES
-(3, NULL, 'Dua Company', 'Jl. Prof. Satrio Kuningan', NULL, NULL, NULL, NULL, NULL, NULL, 'Active');
+(10, NULL, 'asdfa', 'sdfasdfasd', NULL, NULL, NULL, NULL, NULL, NULL, '');
 
 -- --------------------------------------------------------
 
@@ -144,8 +144,8 @@ CREATE TABLE IF NOT EXISTS `master_location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `location` varchar(45) DEFAULT NULL,
   `type` varchar(45) DEFAULT NULL,
-  `parent_id` varchar(45) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
+  `parent_id` int(45) DEFAULT NULL,
+  `status` enum('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -219,9 +219,32 @@ CREATE TABLE IF NOT EXISTS `master_vehicle` (
   `company_id` varchar(45) DEFAULT NULL COMMENT 'untuk mengetahui pemilik adalah trimulya / vendor',
   `date` varchar(45) DEFAULT NULL,
   `last_modified` varchar(45) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
+  `status` enum('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `privilege`
+--
+
+CREATE TABLE IF NOT EXISTS `privilege` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_type_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `menu` varchar(150) NOT NULL,
+  `action` varchar(150) NOT NULL,
+  `last_modified` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data untuk tabel `privilege`
+--
+
+INSERT INTO `privilege` (`id`, `user_type_id`, `user_id`, `menu`, `action`, `last_modified`) VALUES
+(1, 2, 0, 'master/company', 'view', '2014-06-10 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -244,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('85871ff3d96fddc1723cbc7246c1baf1', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36', 1401894732, '');
+('2d7484367ac857b25dcf4acc2ca02cf3', '::1', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36', 1402337933, '');
 
 -- --------------------------------------------------------
 
@@ -285,7 +308,8 @@ CREATE TABLE IF NOT EXISTS `transaction` (
 
 CREATE TABLE IF NOT EXISTS `transaction_detail` (
   `id` int(11) NOT NULL,
-  `type` enum('Charge','Packing','Insurance','Dp','Others') DEFAULT NULL,
+  `master_price_id` int(11) DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
   `price` varchar(45) DEFAULT NULL,
   `quantity` varchar(45) DEFAULT NULL,
   `amount` varchar(45) DEFAULT NULL,
@@ -295,21 +319,52 @@ CREATE TABLE IF NOT EXISTS `transaction_detail` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Struktur dari tabel `user`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
-  `password` int(11) DEFAULT NULL,
+  `password` varchar(150) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
+  `email` varchar(150) NOT NULL,
   `user_type_id` varchar(45) DEFAULT NULL,
-  `date` varchar(45) DEFAULT NULL,
-  `last_modified` varchar(45) DEFAULT NULL,
-  `last_activity` varchar(45) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `last_modified` datetime DEFAULT NULL,
+  `last_activity` datetime DEFAULT NULL,
+  `status` enum('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data untuk tabel `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`, `name`, `email`, `user_type_id`, `date`, `last_modified`, `last_activity`, `status`) VALUES
+(1, 'temals', 'ec80be4898655fcf42d8669dde6cb6b2', 'Slamet Mulyadi', 'temals.mulyadi@gmail.com', '1', '2014-06-09', '2014-06-09 00:00:00', '2014-06-09 00:00:00', 'Active'),
+(2, 'admin', 'f6fdffe48c908deb0f4c3bd36c032e72', 'Administrator', 'adminweb@ics.co.id', '2', '2014-06-10', '2014-06-10 00:00:00', '2014-06-10 00:00:00', 'Active'),
+(4, 'superuser', '2bffb3bbd66a9b469723cbfe03a521d0', 'super user', 'superuser@ics.co.id', '1', NULL, NULL, NULL, 'Active');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `user_type`
+--
+
+CREATE TABLE IF NOT EXISTS `user_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_type` varchar(150) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data untuk tabel `user_type`
+--
+
+INSERT INTO `user_type` (`id`, `user_type`, `description`) VALUES
+(1, 'super_users', ''),
+(2, 'Admnistrator', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
