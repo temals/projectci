@@ -1,4 +1,7 @@
 projectci
 =========
 
-Collaborate Branch, using this branch team can make changes and work together
+Project CI is a framework based in code igniter;
+
+
+make changes in collaborate branch;
