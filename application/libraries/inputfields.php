@@ -70,6 +70,18 @@ class inputfields
 		$options = array(""=>"Select Status","Active"=>"Active","Inactive"=>"Inactive","Trashed"=>"Trashed");
 		return $this->setlist($name,$options,$value,$parameters);
 	}
+
+	function faktur_status_lists($name="",$value="",$parameters="",$label="")
+	{
+		$options = array(""=>"Select Status","Available"=>"Available","Unavailable"=>"Unavailable");
+		return $this->setlist($name,$options,$value,$parameters);
+	}
+
+	function unit_lists($name="",$value="",$parameters="",$label="")
+	{
+		$options = array(""=>"Select Type","jarak"=>"Jarak","berat"=>"Berat","waktu"=>"Waktu");
+		return $this->setlist($name,$options,$value,$parameters);
+	}
 	
 	function customer_lists($name="",$value="",$parameters="",$label="")
 	{

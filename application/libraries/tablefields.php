@@ -15,6 +15,27 @@ class tablefields
 		$fields['primary'] = "id";
 		return $this->returnFields($fields,$post);
 	}
+
+	function master_unit($post="")
+	{
+		$fields['fields'] = array("id","unit","type","status","description");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
+
+	function master_price($post="")
+	{
+		$fields['fields'] = array("id","name","type","location_id","dest_location_id","vehicle_id","vehicle_price","over_tonage_price","min_weight","price","unit_id","description","active","expired","status","delivery","return_sj");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
+
+	function master_faktur_pajak($post="")
+	{
+		$fields['fields'] = array("id","name","no_faktur","status");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
 	
 	function returnFields($fields="",$post="")
 	{

@@ -35,7 +35,7 @@ class Master extends CI_Controller {
 				$view = "master/add";
 				$getdata = (!empty($id) ? $this->default_model->getData("master_company",array("id"=>$id)) : "");
 				$data = (!empty($getdata) ? $getdata : "");
-				$structure = array("name"=>"text","address"=>"textarea","status"=>"statuslist");
+				$structure = array("name"=>"text","address"=>"textarea","status"=>"status_lists");
 			break;
 			
 			case "delete":
@@ -117,6 +117,145 @@ class Master extends CI_Controller {
 			"data" => $data,
 			"structure" => $structure,
 			"page" => "master/users",
+		);
+		
+		$this->load->view('template',$parse);
+	}
+
+	public function unit($action="",$id="")
+	{
+
+		$post = $this->input->post();
+		$action = (!empty($action) ? $action : (!empty($post['action']) ? $post['action'] : ""));
+		
+		switch($action)
+		{
+			case "add":
+				$view = "master/add";
+				$getdata = (!empty($id) ? $this->default_model->getData("master_unit",array("id"=>$id)) : "");
+				$data = (!empty($getdata) ? $getdata : "");
+				$structure = array("unit"=>"text","type"=>"unit_lists","status"=>"text","description"=>"textarea");
+			break;
+			
+			case "delete":
+				if(!empty($id))
+				{
+					$this->default_model->delete("master_unit",array("id"=>$id));
+					redirect(site_url("master/unit"));
+				}
+			break;
+			
+			case "save":
+				$this->default_model->store("master_unit",$post);
+				redirect(site_url("master/unit"));
+			break;
+			
+			default:
+				$view = "master/default";
+				$data = $this->default_model->getData("master_unit","","array");
+				$structure = array("unit"=>"Unit","type"=>"Type","status"=>"Status","description"=>"Description");
+			break;
+		
+		}
+		
+		$parse = array(
+			"view" => $view,
+			"data" => $data,
+			"structure" => $structure,
+			"page" => "master/unit",
+		);
+		
+		$this->load->view('template',$parse);
+	}
+
+
+	public function price($action="",$id="")
+	{
+
+		$post = $this->input->post();
+		$action = (!empty($action) ? $action : (!empty($post['action']) ? $post['action'] : ""));
+		
+		switch($action)
+		{
+			case "add":
+				$view = "master/add";
+				$getdata = (!empty($id) ? $this->default_model->getData("master_price",array("id"=>$id)) : "");
+				$data = (!empty($getdata) ? $getdata : "");
+				$structure = array("name"=>"text","price"=>"number","status"=>"status_lists");
+			break;
+			
+			case "delete":
+				if(!empty($id))
+				{
+					$this->default_model->delete("master_price",array("id"=>$id));
+					redirect(site_url("master/price"));
+				}
+			break;
+			
+			case "save":
+				$this->default_model->store("master_price",$post);
+				redirect(site_url("master/price"));
+			break;
+			
+			default:
+				$view = "master/default";
+				$data = $this->default_model->getData("master_price","","array");
+				$structure = array("name"=>"Nama","price"=>"Harga","status"=>"Status");
+			break;
+		
+		}
+		
+		$parse = array(
+			"view" => $view,
+			"data" => $data,
+			"structure" => $structure,
+			"page" => "master/price",
+		);
+		
+		$this->load->view('template',$parse);
+	}
+
+	public function faktur_pajak($action="",$id="")
+	{
+
+		$post = $this->input->post();
+		$action = (!empty($action) ? $action : (!empty($post['action']) ? $post['action'] : ""));
+		
+		switch($action)
+		{
+			case "add":
+				$view = "master/add";
+				$getdata = (!empty($id) ? $this->default_model->getData("master_faktur_pajak",array("id"=>$id)) : "");
+				$data = (!empty($getdata) ? $getdata : "");
+				$structure = array("name"=>"text","no_faktur"=>"text","status"=>"faktur_status_lists");
+			break;
+			
+			case "delete":
+				if(!empty($id))
+				{
+					$this->default_model->delete("master_faktur_pajak",array("id"=>$id));
+					redirect(site_url("master/faktur_pajak"));
+				}
+			break;
+			
+			case "save":
+				$this->default_model->store("master_faktur_pajak",$post);
+				redirect(site_url("master/faktur_pajak"));
+			break;
+			
+			default:
+				$view = "master/default";
+				$data = $this->default_model->getData("master_faktur_pajak","","array");
+				$structure = array("name"=>"Name","no_faktur"=>"No Faktur","status"=>"Status");
+			break;
+		
+		}
+		
+		$parse = array(
+			"view" => $view,
+			"data" => $data,
+			"structure" => $structure,
+			"page" => "master/faktur_pajak",
 		);
 		
 		$this->load->view('template',$parse);
