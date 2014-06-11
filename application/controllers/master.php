@@ -134,7 +134,7 @@ class Master extends CI_Controller {
 				$view = "master/add";
 				$getdata = (!empty($id) ? $this->default_model->getData("master_unit",array("id"=>$id)) : "");
 				$data = (!empty($getdata) ? $getdata : "");
-				$structure = array("unit"=>"text","type"=>"unit_lists","status"=>"text","description"=>"textarea");
+				$structure = array("unit"=>"text","type"=>"unit_type_lists","status"=>"text","description"=>"textarea");
 			break;
 			
 			case "delete":
@@ -181,7 +181,22 @@ class Master extends CI_Controller {
 				$view = "master/add";
 				$getdata = (!empty($id) ? $this->default_model->getData("master_price",array("id"=>$id)) : "");
 				$data = (!empty($getdata) ? $getdata : "");
-				$structure = array("name"=>"text","price"=>"number","status"=>"status_lists");
+				$structure = array(
+					"name"=>"text",
+					"type"=>"price_type_lists",
+					"vehicle_id"=>"vehicle_lists",
+					"vehicle_price"=>"number",
+					"over_tonage_price"=>"number",
+					"min_weight"=>"number",
+					"price"=>"number",
+					"unit"=>"unit_lists",
+					"description"=>"textarea",
+					"active"=>"date",
+					"expired"=>"date",
+					"status"=>"status_lists",
+					"delivery"=>"number",
+					"return_sj"=>"number"
+					);
 			break;
 			
 			case "delete":
@@ -259,6 +274,163 @@ class Master extends CI_Controller {
 		);
 		
 		$this->load->view('template',$parse);
+	}
+
+	public function coa($action="",$id="")
+	{
+			$post 	= $this->input->post();
+			$action = (!empty($action) ? $action : (!empty($post['action']) ? $post['action'] : ""));
+
+			switch ($action)
+		{
+			case 'add':
+						$view 	   = "master/add";
+						$getdata   = (!empty($id) ? $this->default_model->getData("master_coa",array("id" => $id)): "");
+						$data 	   = (!empty($getdata) ? $getdata : "");
+						$structure = array(
+							"kode"        => "text",
+							"name" 		  => "text",
+							"description" => "textarea"
+						);
+			break;
+
+			case 'delete' :
+						if(!empty($id))
+						{
+							$this->default_model->delete("master_coa",array("id" => $id));
+							redirect(site_url('master/coa'));
+						}
+			break;
+
+			case 'save' :
+						$this->default_model->store("master_coa",$post);
+						redirect(site_url('master/coa'));
+			break;
+
+			default:
+						$view      = 'master/default';
+						$data 	   = $this->default_model->getData("master_coa","","array");
+						$structure = array(
+						"kode"	   		=> "Kode",
+						"name"	   		=> "Name",
+						"description"	=> "Description"
+							);
+			break;
+		}
+						$parse = array(
+						"view" 		=> $view,
+						"data" 		=> $data,
+						"structure" => $structure,
+						"page"		=> "master/coa"
+						);
+						$this->load->view('template',$parse);
+	}
+
+	public function location($action="",$id="")
+	{
+			$post 		= $this->input->post();
+			$action 	= (!empty($action) ? $action :(!empty($post['action']) ? $post['action'] : ""));
+
+			switch ($action) 
+		{
+			case 'add':
+						$view 		= "master/add";
+						$getdata 	= (!empty($id) ? $this->default_model->getData("master_location",array("id" => $id)): "");
+						$data		= (!empty($getdata) ? $getdata : "");
+						$structure	= array(
+						"location"	=> "text",
+						"type"		=> "text",
+						"parent_id"	=> "text",
+						"status"	=> "status_lists"
+							);
+			break;
+
+			case 'save' :
+						$this->default_model->store("master_location",$post);
+						redirect(site_url('master/location'));
+			break;
+
+			case 'delete':
+						if(!empty($id))
+						{
+							$this->default_model->delete("master_location",array("id"=>$id));
+							redirect(site_url('master/location'));
+						}
+			break;
+
+			default:
+				$view	= 'master/default';
+				$data 	= $this->default_model->getdata("master_location","","array");
+				$structure	=array(
+				"location"	=> "Location",
+				"type"		=> "Type",
+				"parent_id"	=> "Parent ID",
+				"status"	=> "Status"
+				);
+			break;
+		}
+
+				$parse=array(
+				"view"		=> $view,
+				"data"		=> $data,
+				"structure"	=> $structure,
+				"page"		=> 'master/location'
+				);
+				$this->load->view('template',$parse);
+	}
+
+	public function vehicle($action="",$id="")
+	{
+		$post	= $this->input->post();
+		$action = (!empty($action) ? $action :(!empty($post['action']) ? $post['action'] : ""));
+
+			switch ($action)
+			{
+			case 'add':
+					$view 	   = "master/add";
+					$getdata   = (!empty($id) ? $this->default_model->getData("master_vehicle",array("id"=>$id)):"");
+					$data 	   = (!empty($getdata) ? $getdata : "");
+					$structure =array(
+					"merk"				=> "text",
+					"type"				=> "text",
+					"model"				=> "text",
+					"no_polisi"			=> "text",
+					"status"			=> "status_lists"
+					);
+			break;
+
+			case 'delete':
+					if(!empty($id))
+					{
+						$this->default_model->delete("master_vehicle",array("id"=>$id));
+						redirect(site_url('master/vehicle'));
+					}
+			break;
+
+			case 'save':
+					$this->default_model->store("master_vehicle",$post);
+					redirect(site_url('master/vehicle'));
+			break;
+
+			default:
+					$view 		= 'master/default';
+					$data 		= $this->default_model->getData("master_vehicle","","array");
+					$structure	= array(
+					"merk"				=> "Merk",
+					"type"				=> "Type",
+					"model"				=> "Model",
+					"no_polisi"			=> "No Polisi",
+					"status"			=> "Status"
+					);
+			break;
+			}
+				$parse=array(
+				"view"		=> $view,
+				"data"		=> $data,
+				"structure"	=> $structure,
+				"page"		=> 'master/vehicle'
+				);
+				$this->load->view('template',$parse);
 	}
 }
 

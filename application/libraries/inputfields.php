@@ -71,13 +71,19 @@ class inputfields
 		return $this->setlist($name,$options,$value,$parameters);
 	}
 
+	function price_type_lists($name="",$value="",$parameters="",$label="")
+	{
+		$options = array(""=>"Select Type","Darat"=>"Darat","Laut"=>"Laut","Udara"=>"Udara","Lainnya"=>"Lainnya");
+		return $this->setlist($name,$options,$value,$parameters);
+	}
+
 	function faktur_status_lists($name="",$value="",$parameters="",$label="")
 	{
 		$options = array(""=>"Select Status","Available"=>"Available","Unavailable"=>"Unavailable");
 		return $this->setlist($name,$options,$value,$parameters);
 	}
 
-	function unit_lists($name="",$value="",$parameters="",$label="")
+	function unit_type_lists($name="",$value="",$parameters="",$label="")
 	{
 		$options = array(""=>"Select Type","jarak"=>"Jarak","berat"=>"Berat","waktu"=>"Waktu");
 		return $this->setlist($name,$options,$value,$parameters);
@@ -94,6 +100,20 @@ class inputfields
 	{
 		$select = array("id","user_type");
 		$options = $this->ci->default_model->getdata("user_type","","array");
+		return $this->setlist($name,$options,(!empty($value) ? $value : "3"),$parameters,$select);
+	}
+
+	function vehicle_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select = array("id","merk");
+		$options = $this->ci->default_model->getdata("master_vehicle","","array");
+		return $this->setlist($name,$options,(!empty($value) ? $value : "3"),$parameters,$select);
+	}
+
+	function unit_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select = array("id","unit");
+		$options = $this->ci->default_model->getdata("master_unit","","array");
 		return $this->setlist($name,$options,(!empty($value) ? $value : "3"),$parameters,$select);
 	}
 	
@@ -124,37 +144,37 @@ class inputfields
 		$parameters = string,
 		$select array($key,$val)
 	*/
-	function setlist($name="",$options="",$value="",$parameters="",$select="")
-	{
-		if(!empty($select))
+		function setlist($name="",$options="",$value="",$parameters="",$select="")
 		{
-			$getOptions = array();
-			
-			$getOptions[] = "Select ".ucfirst(substr($name,0,strpos($name,"_")));
-			foreach($options as $option)
+			if(!empty($select))
 			{
-				if(is_array($option))
+				$getOptions = array();
+
+				$getOptions[] = "Select ".ucfirst(substr($name,0,strpos($name,"_")));
+				foreach($options as $option)
 				{
-					$getOptions[$option[$select[0]]] = $option[$select[1]];
+					if(is_array($option))
+					{
+						$getOptions[$option[$select[0]]] = $option[$select[1]];
+					}
+					else
+					{
+						$getOptions[$option->$select[0]] = $option->$select[1];
+					}
 				}
-				else
-				{
-					$getOptions[$option->$select[0]] = $option->$select[1];
-				}
+
+				$options = $getOptions;
 			}
-			
-			$options = $getOptions;
+			return form_dropdown((!empty($name) ? $name : ""), $options, (!empty($value) ? $value : ""), (!empty($parameters) ? $parameters : ""));
 		}
-		return form_dropdown((!empty($name) ? $name : ""), $options, (!empty($value) ? $value : ""), (!empty($parameters) ? $parameters : ""));
-	}
-	
-	function setStringParameter($parameters)
-	{
-		$string = "";
-		foreach($parameters as $key=>$val)
+
+		function setStringParameter($parameters)
 		{
-			$string .= $key."='".$val."' ";
+			$string = "";
+			foreach($parameters as $key=>$val)
+			{
+				$string .= $key."='".$val."' ";
+			}
+			return $string;
 		}
-		return $string;
 	}
-}

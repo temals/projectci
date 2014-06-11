@@ -36,6 +36,50 @@ class tablefields
 		$fields['primary'] = "id";
 		return $this->returnFields($fields,$post);
 	}
+
+	function master_coa($post="")
+	{
+		$fields['fields'] = array("id","kode","name","description");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
+
+	function master_location($post="")
+	{
+		$fields['fields']=array("id","location","type","parent_id","status");
+		$fields['primary']="id";
+		return $this->returnFields($fields,$post);
+	}
+
+	function master_vehicle($post="")
+	{
+		$fields['fields']=array(
+					"id",
+					"merk",
+					"type",
+					"jenis",
+					"model",
+					"no_polisi",
+					"pemilik",
+					"tahun_pembuatan",
+					"no_rangka",
+					"no_mesin",
+					"bahan_bakar",
+					"no_kir",
+					"nomer_bbpkb",
+					"capacity_weight",
+					"expired_stnk",
+					"expired_ibm",
+					"expired_sipa",
+					"driver",
+					"company_id",
+					"date",
+					"last_modified",
+					"status"
+		);
+		$fields['primary']="id";
+		return $this->returnFields($fields,$post);
+	}
 	
 	function returnFields($fields="",$post="")
 	{
