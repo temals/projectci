@@ -63,5 +63,39 @@ class Default_model extends CI_Model
 			$this->db->delete($table,$params);
 		}
 	}
+    
+     //melakukan pengecekan jika terdapat data yang sama pada table
+    function existsData($table="",$post="",$unique_fields="")
+    {
+        $getTable = method_exists("tablefields",$table);
+		if(!empty($getTable))
+		{
+			$data = $this->tablefields->$table($post);
+            $uniques = array();
+            foreach($data['data'] as $key=>$val)
+            {
+                foreach($unique_fields as $unique)
+                {
+                    if(strtolower($key) == strtolower($unique))
+                    {
+                        if(!empty($data['primary']))
+                        {
+                            $uniques[$key." !="] = $val;
+                        }
+                        else
+                        {
+                            $uniques[$key] = $val;
+                        }
+                    }
+                }
+            }
+            
+            if(!empty($uniques))
+            {
+                $is_unique = $this->getData($table,$uniques,"array");
+                return (!empty($is_unique) ? 1 : "");
+            }
+        }
+    }
 
 }
