@@ -47,8 +47,36 @@ class Master extends CI_Controller {
 			break;
 			
 			case "save":
-				$this->default_model->store("master_company",$post);
-				redirect(site_url("master/company"));
+				//check if data exists
+                $isExist = $this->default_model->existsData("master_company",$post,array("name","type"));
+                if(!empty($isExist))
+                {
+                    $view = "master/add";
+				    $data = $post;
+                    $structure = array(
+                        "type"=>"company_type_lists",                        
+                        "name"=>"text",
+                        "address"=>"textarea",
+                        "location_id"=>"location_lists",
+                        "npwp"=>"text",
+                        "phone"=>"text",
+                        "mobile"=>"text",
+                        "fax"=>"text",
+                        "email"=>"text",
+                        "contact_name"=>"text",
+                        "contact_phone"=>"text",
+                        "tax"=>"text",
+                        "discount"=>"text",
+                        "term_payment"=>"text",
+                        "status"=>"status_lists"
+                        );
+                    $notif = array("msg"=>"Data Tersebut Telah ada, Masukkan Data Lainnya","type"=>"danger");
+                }
+                else
+                {
+                    $this->default_model->store("master_company",$post);
+                    redirect(site_url("master/company"));
+                }
 			break;
 			
 			default:
@@ -61,6 +89,7 @@ class Master extends CI_Controller {
 		$parse = array(
 			"view" => $view,
 			"data" => $data,
+            "notif" => (!empty($notif) ? $notif : ""),
 			"structure" => $structure,
 			"page" => "master/company",
 		);
