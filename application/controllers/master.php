@@ -35,7 +35,7 @@ class Master extends CI_Controller {
 				$view = "master/add";
 				$getdata = (!empty($id) ? $this->default_model->getData("master_company",array("id"=>$id)) : "");
 				$data = (!empty($getdata) ? $getdata : "");
-				$structure = array("name"=>"text","address"=>"textarea","status"=>"statuslist");
+				$structure = array("name"=>"text","address"=>"textarea","status"=>"status_lists");
 			break;
 			
 			case "delete":
@@ -83,7 +83,7 @@ class Master extends CI_Controller {
 				$structure = array(
 						"username"=>"text",
 						"password"=>
-							array("type"=>"password","value"=>"","placeHolder"=>"Masukkan Password untuk mengganti password lama"),
+						array("type"=>"password","value"=>"","placeHolder"=>"Masukkan Password untuk mengganti password lama"),
 						"name"=>"text",
 						"email"=>"text",
 						"user_type_id"=>array("type"=>"user_type_lists","privilege"=>"1"), //artinya hanya super users yang dapat mengedit jenis user atau jenis member
@@ -121,6 +121,165 @@ class Master extends CI_Controller {
 		
 		$this->load->view('template',$parse);
 	}
+
+
+	public function coa($action="",$id="")
+	{
+			$post 	= $this->input->post();
+			$action = (!empty($action) ? $action : (!empty($post['action']) ? $post['action'] : ""));
+
+			switch ($action)
+		{
+			case 'add':
+						$view 	   = "master/add";
+						$getdata   = (!empty($id) ? $this->default_model->getData("master_coa",array("id" => $id)): "");
+						$data 	   = (!empty($getdata) ? $getdata : "");
+						$structure = array(
+							"kode"        => "text",
+							"name" 		  => "text",
+							"description" => "textarea"
+						);
+			break;
+
+			case 'delete' :
+						if(!empty($id))
+						{
+							$this->default_model->delete("master_coa",array("id" => $id));
+							redirect(site_url('master/coa'));
+						}
+			break;
+
+			case 'save' :
+						$this->default_model->store("master_coa",$post);
+						redirect(site_url('master/coa'));
+			break;
+			
+			default:
+						$view      = 'master/default';
+						$data 	   = $this->default_model->getData("master_coa","","array");
+						$structure = array(
+						"kode"	   		=> "Kode",
+						"name"	   		=> "Name",
+						"description"	=> "Description"
+							);
+			break;
+		}
+						$parse = array(
+						"view" 		=> $view,
+						"data" 		=> $data,
+						"structure" => $structure,
+						"page"		=> "master/coa"
+						);
+						$this->load->view('template',$parse);
+	}
+
+	public function location($action="",$id="")
+	{
+			$post 		= $this->input->post();
+			$action 	= (!empty($action) ? $action :(!empty($post['action']) ? $post['action'] : ""));
+
+			switch ($action) 
+		{
+			case 'add':
+						$view 		= "master/add";
+						$getdata 	= (!empty($id) ? $this->default_model->getData("master_location",array("id" => $id)): "");
+						$data		= (!empty($getdata) ? $getdata : "");
+						$structure	= array(
+						"location"	=> "text",
+						"type"		=> "text",
+						"parent_id"	=> "text",
+						"status"	=> "status_lists"
+							);
+			break;
+
+			case 'save' :
+						$this->default_model->store("master_location",$post);
+						redirect(site_url('master/location'));
+			break;
+
+			case 'delete':
+						if(!empty($id))
+						{
+							$this->default_model->delete("master_location",array("id"=>$id));
+							redirect(site_url('master/location'));
+						}
+			break;
+			
+			default:
+				$view	= 'master/default';
+				$data 	= $this->default_model->getdata("master_location","","array");
+				$structure	=array(
+				"location"	=> "Location",
+				"type"		=> "Type",
+				"parent_id"	=> "Parent ID",
+				"status"	=> "Status"
+				);
+			break;
+		}
+
+				$parse=array(
+				"view"		=> $view,
+				"data"		=> $data,
+				"structure"	=> $structure,
+				"page"		=> 'master/location'
+				);
+				$this->load->view('template',$parse);
+	}
+
+	public function vehicle($action="",$id="")
+	{
+		$post	= $this->input->post();
+		$action = (!empty($action) ? $action :(!empty($post['action']) ? $post['action'] : ""));
+
+			switch ($action)
+			{
+			case 'add':
+					$view 	   = "master/add";
+					$getdata   = (!empty($id) ? $this->default_model->getData("master_vehicle",array("id"=>$id)):"");
+					$data 	   = (!empty($getdata) ? $getdata : "");
+					$structure =array(
+					"merk"				=> "text",
+					"type"				=> "text",
+					"model"				=> "text",
+					"no_polisi"			=> "text",
+					"status"			=> "status_lists"
+					);
+			break;
+			
+			case 'delete':
+					if(!empty($id))
+					{
+						$this->default_model->delete("master_vehicle",array("id"=>$id));
+						redirect(site_url('master/vehicle'));
+					}
+			break;
+			
+			case 'save':
+					$this->default_model->store("master_vehicle",$post);
+					redirect(site_url('master/vehicle'));
+			break;
+			
+			default:
+					$view 		= 'master/default';
+					$data 		= $this->default_model->getData("master_vehicle","","array");
+					$structure	= array(
+					"merk"				=> "Merk",
+					"type"				=> "Type",
+					"model"				=> "Model",
+					"no_polisi"			=> "No Polisi",
+					"status"			=> "Status"
+					);
+			break;
+			}
+				$parse=array(
+				"view"		=> $view,
+				"data"		=> $data,
+				"structure"	=> $structure,
+				"page"		=> 'master/vehicle'
+				);
+				$this->load->view('template',$parse);
+	}
+
 }
 
 /* End of file welcome.php */
