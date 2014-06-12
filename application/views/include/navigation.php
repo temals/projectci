@@ -5,14 +5,16 @@
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 			  Master <span class="caret"></span>
 				<ul class="dropdown-menu">
-					<li><?php echo anchor("master/company","Company"); ?></li>
 					<li><?php echo anchor("master/users","Users"); ?></li>
-					<li><?php echo anchor("master/unit","Unit"); ?></li>
-					<li><?php echo anchor("master/price","Harga"); ?></li>
-					<li><?php echo anchor("master/location","Lokasi"); ?></li>
-					<li><?php echo anchor("master/coa","COA"); ?></li>
+                    <li><?php echo anchor("master/company","Company"); ?></li>
 					<li><?php echo anchor("master/vehicle","Kendaraan"); ?></li>
+                    <li><?php echo anchor("master/price","Harga"); ?></li>
+                    <li><?php echo anchor("master/charter_price","Harga Charter Kendaraan"); ?></li>
+                    <li><?php echo anchor("master/location","Lokasi"); ?></li>
+                    <li><?php echo anchor("master/unit","Unit"); ?></li>
+					<li><?php echo anchor("master/staff","Staff"); ?></li>
 					<li><?php echo anchor("master/faktur_pajak","Faktur Pajak"); ?></li>
+                    <li><?php echo anchor("master/coa","Account (COA)"); ?></li>					
 				</ul>
 			</a>
 		</li>

@@ -47,7 +47,6 @@ class inputfields
 		
 		$type = (!empty($parameters['type']) ? $parameters['type'] : "text");
 		
-		
 		if(!method_exists("inputfields",$type))
 		{
 			$type = "text";
@@ -71,10 +70,23 @@ class inputfields
 		return $this->setlist($name,$options,$value,$parameters);
 	}
 	
+	function company_type_lists($name="",$value="",$parameters="",$label="")
+	{
+		$options = array(""=>"Select Type","Pusat"=>"Perusahaan Pusat","Cabang"=>"Perusahaan Cabang","Customer"=>"Customer","Vendor"=>"Vendor");
+		return $this->setlist($name,$options,$value,$parameters);
+	}
+	
 	function customer_lists($name="",$value="",$parameters="",$label="")
 	{
 		$select = array("id","name");
 		$options = $this->ci->default_model->getdata("master_company",array("type"=>"Customer"),"array");
+		return $this->setlist($name,$options,$value,$parameters,$select);
+	}
+	
+	function location_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select = array("id","location");
+		$options = $this->ci->default_model->getdata("master_location",array("status"=>"Active"),"array");
 		return $this->setlist($name,$options,$value,$parameters,$select);
 	}
 	

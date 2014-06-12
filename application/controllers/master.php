@@ -35,7 +35,23 @@ class Master extends CI_Controller {
 				$view = "master/add";
 				$getdata = (!empty($id) ? $this->default_model->getData("master_company",array("id"=>$id)) : "");
 				$data = (!empty($getdata) ? $getdata : "");
-				$structure = array("name"=>"text","address"=>"textarea","status"=>"status_lists");
+				$structure = array(
+                    "type"=>"company_type_lists",                        
+                    "name"=>"text",
+                    "address"=>"textarea",
+                    "location_id"=>"location_lists",
+                    "npwp"=>"text",
+                    "phone"=>"text",
+                    "mobile"=>"text",
+                    "fax"=>"text",
+                    "email"=>"text",
+                    "contact_name"=>"text",
+                    "contact_phone"=>"text",
+                    "tax"=>"text",
+                    "discount"=>"text",
+                    "term_payment"=>"text",
+                    "status"=>"status_lists"
+                );
 			break;
 			
 			case "delete":
@@ -70,7 +86,7 @@ class Master extends CI_Controller {
                         "term_payment"=>"text",
                         "status"=>"status_lists"
                         );
-                    $notif = array("msg"=>"Data Tersebut Telah ada, Masukkan Data Lainnya","type"=>"danger");
+                    $alert = array("msg"=>"Data Tersebut Telah ada, Masukkan Data Lainnya","type"=>"danger");
                 }
                 else
                 {
@@ -89,6 +105,7 @@ class Master extends CI_Controller {
 		$parse = array(
 			"view" => $view,
 			"data" => $data,
+            "alert" => (!empty($alert) ? $alert : ""),
             "notif" => (!empty($notif) ? $notif : ""),
 			"structure" => $structure,
 			"page" => "master/company",
@@ -216,7 +233,7 @@ class Master extends CI_Controller {
 						$structure	= array(
 						"location"	=> "text",
 						"type"		=> "text",
-						"parent_id"	=> "text",
+						"parent_id"	=> "location_lists",
 						"status"	=> "status_lists"
 							);
 			break;
@@ -234,14 +251,21 @@ class Master extends CI_Controller {
 						}
 			break;
 			
+            //join table
 			default:
 				$view	= 'master/default';
-				$data 	= $this->default_model->getdata("master_location","","array");
+                //menggunakan join pada query dengan mengganti table menjadi array, lihat model untuk penggunaan
+				$data 	= $this->default_model->getdata(
+                                                        array("master_location;a"=>"parent_id","master_location;b"=>"id"),
+                                                        "",
+                                                        "array",
+                                                        "a.*,b.location as parent_id"
+                                                        );
 				$structure	=array(
-				"location"	=> "Location",
-				"type"		=> "Type",
-				"parent_id"	=> "Parent ID",
-				"status"	=> "Status"
+                    "location"	=> "Location",
+                    "type"		=> "Type",
+                    "parent_id"	=> "Parent ID",
+                    "status"	=> "Status"
 				);
 			break;
 		}
@@ -269,7 +293,7 @@ class Master extends CI_Controller {
 					$structure =array(
 					"merk"				=> "text",
 					"type"				=> "text",
-					"model"				=> "text",
+					"model"				=> "date",
 					"no_polisi"			=> "text",
 					"status"			=> "status_lists"
 					);

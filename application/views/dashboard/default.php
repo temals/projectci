@@ -11,7 +11,8 @@
 	<p class='alert alert-info'><i>Sementara ini kita assign tugas untuk mengerjakan master data, Silakan dikerjakan jika ada kendala tolong lapor waktu kurang lebih 3 hari kita report progress</i></p>
 	<p><b>Sultan</b>
 	<ul>
-		<li>Master COA</li>
+		<li>Master Harga Charter Kendaraan <span class="label label-success">Baru</span></li>
+        <li>Master COA</li>
 		<li>Master Lokasi</li>
 		<li>Master Kendaraan</li>
 	</ul>
@@ -19,6 +20,7 @@
 	<p>
 	<b>Fajrin</b>
 	<ul>
+        <li>Master Staff <span class="label label-success">Baru</span></li>
 		<li>Master Unit</li>
 		<li>Master Harga</li>
 		<li>Faktur Pajak</li>
