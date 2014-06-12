@@ -59,6 +59,34 @@ class tablefields
 		$fields['primary']="id";
 		return $this->returnFields($fields,$post);
 	}
+
+	function master_unit($post="")
+	{
+		$fields['fields'] = array("id","unit","type","status","description");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
+
+	function master_price($post="")
+	{
+		$fields['fields'] = array("id","name","location_id","dest_location_id","min_weight","land_price","air_price","water_price","over_tonage_price","description","expired","status");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
+
+	function master_faktur_pajak($post="")
+	{
+		$fields['fields'] = array("id","no_faktur","status");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
+
+	function master_staff($post="")
+	{
+		$fields['fields'] = array("id","company_id","user_id","identity","name","departemen","jabatan","gender","agama","address","phone","mobile","email","status");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
 	
 	function returnFields($fields="",$post="")
 	{

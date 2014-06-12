@@ -75,6 +75,12 @@ class inputfields
 		$options = array(""=>"Select Type","Pusat"=>"Perusahaan Pusat","Cabang"=>"Perusahaan Cabang","Customer"=>"Customer","Vendor"=>"Vendor");
 		return $this->setlist($name,$options,$value,$parameters);
 	}
+
+	function gender_lists($name="",$value="",$parameters="",$label="")
+	{
+		$options = array(""=>"Select Gender","Pria"=>"Pria","Wanita"=>"Wanita");
+		return $this->setlist($name,$options,$value,$parameters);
+	}
 	
 	function customer_lists($name="",$value="",$parameters="",$label="")
 	{
@@ -89,12 +95,38 @@ class inputfields
 		$options = $this->ci->default_model->getdata("master_location",array("status"=>"Active"),"array");
 		return $this->setlist($name,$options,$value,$parameters,$select);
 	}
+
+	function user_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select = array("id","username");
+		$options = $this->ci->default_model->getdata("user",array("status"=>"Active"),"array");
+		return $this->setlist($name,$options,$value,$parameters,$select);
+	}
+
+	function company_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select = array("id","name");
+		$options = $this->ci->default_model->getdata("master_company",array("status"=>"Active"),"array");
+		return $this->setlist($name,$options,$value,$parameters,$select);
+	}
 	
 	function user_type_lists($name="",$value="",$parameters="",$label="")
 	{
 		$select = array("id","user_type");
 		$options = $this->ci->default_model->getdata("user_type","","array");
 		return $this->setlist($name,$options,(!empty($value) ? $value : "3"),$parameters,$select);
+	}
+
+	function status_available_lists($name="",$value="",$parameters="",$label="")
+	{
+		$options = array(""=>"Select Status","Available"=>"Available","Unavailable"=>"Unavailable");
+		return $this->setlist($name,$options,$value,$parameters);
+	}
+
+	function type_unit_lists($name="",$value="",$parameters="",$label="")
+	{
+		$options = array(""=>"Select Type","Jarak"=>"Jarak","Berat"=>"Berat","Waktu"=>"Waktu");
+		return $this->setlist($name,$options,$value,$parameters);
 	}
 	
 	function text($name="",$value="",$parameters="",$label="")
