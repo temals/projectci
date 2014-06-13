@@ -306,8 +306,8 @@ class Master extends CI_Controller {
 					"expired_stnk"		=> array("id"=>"date_expired_stnk"),
 					"expired_ibm"		=> array("id"=>"date_expired_ibm"),
 					"expired_sipa"		=> array("id"=>"date_expired_sipa"),
-					"driver_id"			=> "text",
-					"company_id"		=> array("type"=>"company_type_lists"),
+					"driver_id"			=> "staff_lists",
+					"company_id"		=> "company_lists",
 					"date"				=> array("id"=>"date"),
 					"last_modified"		=> array("id"=>"date_last_modified"),
 					"status"			=> "status_lists"
@@ -591,12 +591,12 @@ class Master extends CI_Controller {
 				default:
 					$view	= 'master/default';
 					$data 	= $this->default_model->getdata(
-									array("master_charter_price;a"=>"location_id","master_location;b"=>"id"),
-                      				"",
-                      				"array",
-                      				"a.*,b.location as location_id"
-                      				);
-
+					array("master_charter_price;a"=>"location_id","master_location;b"=>"id"),
+                    "",
+                    "array",
+                    "a.*,b.location as location_id"
+                    );
+					
 					$structure =array(
 						"vehicle_type_id"	=> "Type",
 						"price"				=> "Price",
