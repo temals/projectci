@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 14 Jun 2014 pada 15.31
+-- Generation Time: 14 Jun 2014 pada 16.19
 -- Versi Server: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `master_charter_price` (
 --
 
 INSERT INTO `master_charter_price` (`id`, `vehicle_type_id`, `price`, `location_id`, `dest_location_id`, `delivery_time`, `return_doc_time`, `status`) VALUES
-(3, 2, 20000, 2, 1, '2014-06-28', '2014-06-26', 'Active');
+(3, 3, 20000, 2, 1, '2014-06-28', '2014-06-26', 'Active');
 
 -- --------------------------------------------------------
 
@@ -365,15 +365,15 @@ CREATE TABLE IF NOT EXISTS `master_vehicle` (
   `last_modified` datetime DEFAULT NULL,
   `status` enum('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data untuk tabel `master_vehicle`
 --
 
 INSERT INTO `master_vehicle` (`id`, `merk`, `type`, `jenis`, `model`, `no_polisi`, `pemilik`, `tahun_pembuatan`, `no_rangka`, `no_mesin`, `bahan_bakar`, `no_kir`, `nomer_bbpkb`, `capacity_weight`, `expired_stnk`, `expired_ibm`, `expired_sipa`, `driver_id`, `company_id`, `date`, `last_modified`, `status`) VALUES
-(2, 'Datsun', 'TYPE 1', 'Lama', 'Baru', 'B 1010 PB', 'Jambrong', '1945', '01241561334313213', '021111455474115254', 'Premium', '00014524', '01245211', '100 ML', '2016-06-30', '2014-09-26', '2014-06-28', NULL, 0, '2014-06-20', '2014-06-28 00:00:00', 'Active'),
-(3, 'Daihatsu', 'TYPE 2', 'Lama', 'Baru', 'B 3010 SIP', 'Jabrik', '1945', '01241561334313213', '021111455474115254', 'Premium', '00014524', '01245211', '100 ML', '2016-06-30', '2014-09-26', '2014-06-28', NULL, 0, '2014-06-20', '2014-06-28 00:00:00', 'Active');
+(2, 'Datsun', 'TYPE 1', 'Lama', 'Baru', 'B 1010 PB', 'Jambrong', '1945', '01241561334313213', '021111455474115254', 'Premium', '00014524', '01245211', '100 ML', '2016-06-30', '2014-09-26', '2014-06-28', 2, 12, '2014-06-20', '2014-06-28 00:00:00', 'Active'),
+(3, 'Daihatsu', 'TYPE 2', 'Lama', 'Baru', 'B 3010 SIP', 'Jabrik', '1945', '01241561334313213', '021111455474115254', 'Premium', '00014524', '01245211', '100 ML', '2016-06-30', '2014-09-26', '2014-06-28', 2, 11, '2014-06-20', '2014-06-28 00:00:00', 'Active');
 
 -- --------------------------------------------------------
 
@@ -419,8 +419,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('30b32e1b6c49efd69c005237a7ce8b0b', '::1', 'Mozilla/5.0 (Windows NT 6.1; rv:29.0) Gecko/20100101 Firefox/29.0', 1402744507, 'a:2:{s:9:"user_data";s:0:"";s:4:"user";a:4:{s:2:"id";s:1:"4";s:8:"username";s:9:"superuser";s:5:"email";s:19:"superuser@ics.co.id";s:12:"user_type_id";s:1:"1";}}'),
-('f6f90a660f4d77e50c5c52fa69ed2de5', '::1', 'Mozilla/5.0 (Windows NT 6.1; rv:29.0) Gecko/20100101 Firefox/29.0', 1402751162, '');
+('1ab673c8fe9ad5c43af344bb9b458bd9', '::1', 'Mozilla/5.0 (Windows NT 6.1; rv:29.0) Gecko/20100101 Firefox/29.0', 1402755438, 'a:1:{s:4:"user";a:4:{s:2:"id";s:1:"4";s:8:"username";s:9:"superuser";s:5:"email";s:19:"superuser@ics.co.id";s:12:"user_type_id";s:1:"1";}}');
 
 -- --------------------------------------------------------
 
