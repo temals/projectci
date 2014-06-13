@@ -136,6 +136,14 @@ class inputfields
 		return $this->setlist($name,$options,$value,$parameters,$select);
 
 	}
+
+	function staff_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select = array("id","name");
+		$options = $this->ci->default_model->getdata("master_staff",array("status"=>"Active"),"array");
+		return $this->setlist($name,$options,$value,$parameters,$select);
+	}
+
 	
 	function text($name="",$value="",$parameters="",$label="")
 	{
