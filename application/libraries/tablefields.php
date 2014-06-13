@@ -50,7 +50,7 @@ class tablefields
 					"expired_stnk",
 					"expired_ibm",
 					"expired_sipa",
-					"driver",
+					"driver_id",
 					"company_id",
 					"date",
 					"last_modified",
