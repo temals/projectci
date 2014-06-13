@@ -562,7 +562,7 @@ class Master extends CI_Controller {
 		{
 			case 'add':
 					  $view 	= "master/add";
-					  $getdata  = (!empty($id) ? $this->default_model->getData("master_price",array("id"=>$id)) : "");
+					  $getdata  = (!empty($id) ? $this->default_model->getData("master_charter_price",array("id"=>$id)) : "");
 					  $data 	= (!empty($getdata) ? $getdata : "");
 					  $structure=array(
 					  	"vehicle_type_id"  => "vehicle_type_lists",
@@ -578,28 +578,32 @@ class Master extends CI_Controller {
 				case 'delete' :
 							if(!empty($id))
 							{
-								$this->default_model->delete("master_price",array("id"=>$id));
+								$this->default_model->delete("master_charter_price",array("id"=>$id));
 								redirect(site_url('master/charter_price'));
 							}
 				break;
 
 				case 'save' :
-							$this->default_model->store("master_price",$post);
+							$this->default_model->store("master_charter_price",$post);
 							redirect(site_url('master/charter_price'));
 				break;
 			
 				default:
 					$view	= 'master/default';
 					$data 	= $this->default_model->getdata(
-									array("master_price;a"=>"location_id","master_location;b"=>"id"),
+									array("master_charter_price;a"=>"location_id","master_location;b"=>"id"),
                       				"",
                       				"array",
                       				"a.*,b.location as location_id"
                       				);
 
 					$structure =array(
+						"vehicle_type_id"	=> "Type",
+						"price"				=> "Price",
 						"location_id"		=> "Location ID",
-						"dest_location_id" 	=> "Location Dest"
+						"dest_location_id" 	=> "Location Dest",
+						"status"			=> "Status"
+
 						);
 				break;
 		}
