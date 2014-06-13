@@ -87,6 +87,13 @@ class tablefields
 		$fields['primary'] = "id";
 		return $this->returnFields($fields,$post);
 	}
+
+	function master_charter_price($post="")
+	{
+		$fields['fields'] = array("id","vehicle_type_id","price","location_id","dest_location_id","delivery_time","return_doc_time","status");
+		$fields['primary'] ="id";
+		return $this->returnFields($fields,$post);
+	}
 	
 	function returnFields($fields="",$post="")
 	{
