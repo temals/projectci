@@ -128,6 +128,14 @@ class inputfields
 		$options = array(""=>"Select Type","Jarak"=>"Jarak","Berat"=>"Berat","Waktu"=>"Waktu");
 		return $this->setlist($name,$options,$value,$parameters);
 	}
+
+	function vehicle_type_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select = array("id","type");
+		$options = $this->ci->default_model->getdata("master_vehicle",array("status"=>"Active"),"array");
+		return $this->setlist($name,$options,$value,$parameters,$select);
+
+	}
 	
 	function text($name="",$value="",$parameters="",$label="")
 	{

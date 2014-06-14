@@ -36,21 +36,21 @@ class Master extends CI_Controller {
 				$getdata = (!empty($id) ? $this->default_model->getData("master_company",array("id"=>$id)) : "");
 				$data = (!empty($getdata) ? $getdata : "");
 				$structure = array(
-					"type"=>"company_type_lists",                        
-					"name"=>"text",
-					"address"=>"textarea",
-					"location_id"=>"location_lists",
-					"npwp"=>"text",
-					"phone"=>"text",
-					"mobile"=>"text",
-					"fax"=>"text",
-					"email"=>"text",
-					"contact_name"=>"text",
-					"contact_phone"=>"text",
-					"tax"=>"text",
-					"discount"=>"text",
-					"term_payment"=>"text",
-					"status"=>"status_lists"
+					"type"			=>"company_type_lists",                        
+					"name"			=>"text",
+					"address"		=>"textarea",
+					"location_id"	=>"location_lists",
+					"npwp"			=>"text",
+					"phone"			=>"text",
+					"mobile"		=>"text",
+					"fax"			=>"text",
+					"email"			=>"text",
+					"contact_name"	=>"text",
+					"contact_phone"	=>"text",
+					"tax"			=>"text",
+					"discount"		=>"text",
+					"term_payment"	=>"text",
+					"status"		=>"status_lists"
 					);
 				break;
 
@@ -70,21 +70,21 @@ class Master extends CI_Controller {
 					$view = "master/add";
 					$data = $post;
 					$structure = array(
-						"type"=>"company_type_lists",                        
-						"name"=>"text",
-						"address"=>"textarea",
-						"location_id"=>"location_lists",
-						"npwp"=>"text",
-						"phone"=>"text",
-						"mobile"=>"text",
-						"fax"=>"text",
-						"email"=>"text",
-						"contact_name"=>"text",
-						"contact_phone"=>"text",
-						"tax"=>"text",
-						"discount"=>"text",
-						"term_payment"=>"text",
-						"status"=>"status_lists"
+						"type"			=>"company_type_lists",                        
+						"name"			=>"text",
+						"address"		=>"textarea",
+						"location_id"	=>"location_lists",
+						"npwp"			=>"text",
+						"phone"			=>"text",
+						"mobile"		=>"text",
+						"fax"			=>"text",
+						"email"			=>"text",
+						"contact_name"	=>"text",
+						"contact_phone"	=>"text",
+						"tax"			=>"text",
+						"discount"		=>"text",
+						"term_payment"	=>"text",
+						"status"		=>"status_lists"
 						);
 					$alert = array("msg"=>"Data Tersebut Telah ada, Masukkan Data Lainnya","type"=>"danger");
 				}
@@ -103,12 +103,12 @@ class Master extends CI_Controller {
 			}
 
 			$parse = array(
-				"view" => $view,
-				"data" => $data,
-				"alert" => (!empty($alert) ? $alert : ""),
-				"notif" => (!empty($notif) ? $notif : ""),
+				"view" 		=> $view,
+				"data" 		=> $data,
+				"alert" 	=> (!empty($alert) ? $alert : ""),
+				"notif" 	=> (!empty($notif) ? $notif : ""),
 				"structure" => $structure,
-				"page" => "master/company",
+				"page" 		=> "master/company",
 				);
 
 			$this->load->view('template',$parse);
@@ -132,8 +132,8 @@ class Master extends CI_Controller {
 					array("type"=>"password","value"=>"","placeHolder"=>"Masukkan Password untuk mengganti password lama"),
 					"name"=>"text",
 					"email"=>"text",
-						"user_type_id"=>array("type"=>"user_type_lists","privilege"=>"1"), //artinya hanya super users yang dapat mengedit jenis user atau jenis member
-						"status"=>array("type"=>"status_lists","privilege"=>"1,2") //hanya super users dan admin yang hanya bisa mengedit status
+					"user_type_id"=>array("type"=>"user_type_lists","privilege"=>"1"), //artinya hanya super users yang dapat mengedit jenis user atau jenis member
+					"status"=>array("type"=>"status_lists","privilege"=>"1,2") //hanya super users dan admin yang hanya bisa mengedit status
 						);
 				break;
 
@@ -264,7 +264,6 @@ class Master extends CI_Controller {
 				$structure	=array(
 					"location"	=> "Location",
 					"type"		=> "Type",
-					"parent_id"	=> "Parent ID",
 					"status"	=> "Status"
 					);
 				break;
@@ -293,8 +292,24 @@ class Master extends CI_Controller {
 				$structure =array(
 					"merk"				=> "text",
 					"type"				=> "text",
-					"model"				=> "date",
+					"jenis"				=> "text",
+					"model"				=> "text",
 					"no_polisi"			=> "text",
+					"pemilik"			=> "text",
+					"tahun_pembuatan"	=> "text",
+					"no_rangka"			=> "text",
+					"no_mesin"			=> "text",
+					"bahan_bakar"		=> "text",
+					"no_kir"			=> "text",
+					"nomer_bbpkb"		=> "text",
+					"capacity_weight"	=> "text",
+					"expired_stnk"		=> array("id"=>"date_expired_stnk"),
+					"expired_ibm"		=> array("id"=>"date_expired_ibm"),
+					"expired_sipa"		=> array("id"=>"date_expired_sipa"),
+					"driver_id"			=> "text",
+					"company_id"		=> array("type"=>"company_type_lists"),
+					"date"				=> array("id"=>"date"),
+					"last_modified"		=> array("id"=>"date_last_modified"),
 					"status"			=> "status_lists"
 					);
 				break;
@@ -317,9 +332,12 @@ class Master extends CI_Controller {
 				$data 		= $this->default_model->getData("master_vehicle","","array");
 				$structure	= array(
 					"merk"				=> "Merk",
-					"type"				=> "Type",
-					"model"				=> "Model",
 					"no_polisi"			=> "No Polisi",
+					"bahan_bakar"		=> "Bahan Bakar",
+					"capacity_weight"	=> "Capacity Weight",
+					"expired_stnk"		=> "Exp STNK",
+					"expired_ibm"		=> "Exp IBM",
+					"expired_sipa"		=> "Exp SIPA",
 					"status"			=> "Status"
 					);
 				break;
@@ -393,17 +411,17 @@ class Master extends CI_Controller {
 				$getdata = (!empty($id) ? $this->default_model->getData("master_price",array("id"=>$id)) : "");
 				$data = (!empty($getdata) ? $getdata : "");
 				$structure = array(
-					"name"=>"text",
-					"location_id"=>"location_lists",
-					"dest_location_id"=>"location_lists",
-					"min_weight"=>"text",
-					"land_price"=>"text",
-					"air_price"=>"text",
-					"water_price"=>"text",
-					"over_tonage_price"=>"text",
-					"description"=>"textarea",
-					"expired"=>"date",
-					"status"=>"status_lists"
+					"name"				=>"text",
+					"location_id"		=>"location_lists",
+					"dest_location_id"	=>"location_lists",
+					"min_weight"		=>"text",
+					"land_price"		=>"text",
+					"air_price"			=>"text",
+					"water_price"		=>"text",
+					"over_tonage_price"	=>"text",
+					"description"		=>"textarea",
+					"expired"			=> array("id"=>"date_expired"),
+					"status"			=>"status_lists"
 					);
 				break;
 
@@ -429,10 +447,10 @@ class Master extends CI_Controller {
 			}
 
 			$parse = array(
-				"view" => $view,
-				"data" => $data,
-				"structure" => $structure,
-				"page" => "master/price",
+				"view" 			=> $view,
+				"data" 			=> $data,
+				"structure" 	=> $structure,
+				"page" 			=> "master/price"
 				);
 
 			$this->load->view('template',$parse);
@@ -475,10 +493,10 @@ class Master extends CI_Controller {
 			}
 
 			$parse = array(
-				"view" => $view,
-				"data" => $data,
-				"structure" => $structure,
-				"page" => "master/faktur_pajak",
+				"view" 			=> $view,
+				"data" 			=> $data,
+				"structure" 	=> $structure,
+				"page" 			=> "master/faktur_pajak"
 				);
 
 			$this->load->view('template',$parse);
@@ -535,7 +553,66 @@ class Master extends CI_Controller {
 			$this->load->view('template',$parse);
 		}
 
+		public function charter_price($action="",$id="")
+	{
+		$post 	= $this->input->post();
+		$action = (!empty($action) ? $action : (!empty($post['action']) ? $post['action'] : ""));
+
+			switch ($action)
+		{
+			case 'add':
+					  $view 	= "master/add";
+					  $getdata  = (!empty($id) ? $this->default_model->getData("master_price",array("id"=>$id)) : "");
+					  $data 	= (!empty($getdata) ? $getdata : "");
+					  $structure=array(
+					  	"vehicle_type_id"  => "vehicle_type_lists",
+					  	"price"			   => "text",
+					  	"location_id"	   => "location_lists",
+					  	"dest_location_id" => "location_lists",
+					  	"delivery_time"	   => array("id"=>"date_delivery_time"),
+					  	"return_doc_time"  => array("id"=>"date_return_doc_time"),
+					  	"status"		   => "status_lists"
+					  	);
+				break;
+
+				case 'delete' :
+							if(!empty($id))
+							{
+								$this->default_model->delete("master_price",array("id"=>$id));
+								redirect(site_url('master/charter_price'));
+							}
+				break;
+
+				case 'save' :
+							$this->default_model->store("master_price",$post);
+							redirect(site_url('master/charter_price'));
+				break;
+			
+				default:
+					$view	= 'master/default';
+					$data 	= $this->default_model->getdata(
+									array("master_price;a"=>"location_id","master_location;b"=>"id"),
+                      				"",
+                      				"array",
+                      				"a.*,b.location as location_id"
+                      				);
+
+					$structure =array(
+						"location_id"		=> "Location ID",
+						"dest_location_id" 	=> "Location Dest"
+						);
+				break;
+		}
+				$parse=array(
+				"view"		=> $view,
+				"data"		=> $data,
+				"structure"	=> $structure,
+				"page"		=> 'master/charter_price'
+				);
+				$this->load->view('template',$parse);
 	}
+
+}
 
 	/* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */

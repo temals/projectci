@@ -14,6 +14,11 @@
 			echo link_tag(base_url().'common/css/bootstrap-theme.css');
 			echo link_tag(base_url().'common/css/jquery.dataTables.css');
 			echo link_tag(base_url().'common/css/template.css');
+
+			echo link_tag(base_url().'asset/css/jquery-ui.css');
+			echo "<script src='".base_url()."asset/js/jquery-1.9.1.js'></script>";
+			echo "<script src='".base_url()."asset/js/jquery.ui.js'></script>";
+			echo "<script src='".base_url()."asset/js/script.js'></script>";
 		?>
 	</head>
 	<body>
@@ -26,7 +31,6 @@
 			<div class='container'>
 				<div class='row'>
 					<div class='col-md-10'>
-                        <?php echo (!empty($alert) ? "<div class='alert alert-".(!empty($alert['type']) ? $alert['type'] : "info")."'>".$alert['msg']."</div>" : ""); ?>
 						<?php echo (!empty($view) ? $this->load->view($view) : ""); ?>
 					</div>
 					<div class='col-md-2'>
