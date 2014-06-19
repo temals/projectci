@@ -35,8 +35,8 @@ class tablefields
 		$fields['fields']=array(
 					"id",
 					"merk",
-					"type",
-					"jenis",
+					//"type",
+					//"jenis",
 					"model",
 					"no_polisi",
 					"pemilik",
@@ -91,6 +91,13 @@ class tablefields
 	function master_charter_price($post="")
 	{
 		$fields['fields'] = array("id","vehicle_type_id","price","location_id","dest_location_id","delivery_time","return_doc_time","status");
+		$fields['primary'] ="id";
+		return $this->returnFields($fields,$post);
+	}
+	
+	function privilege($post="")
+	{
+		$fields['fields'] = array("id","user_type_id","user_id","menu","action","last_modified");
 		$fields['primary'] ="id";
 		return $this->returnFields($fields,$post);
 	}

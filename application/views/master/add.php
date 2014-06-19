@@ -16,10 +16,10 @@ if($is_allow == "allow"):
 			if(empty($isHidden)): 
 		?>
 			 <div class="form-group">
-				<label class="col-sm-2 control-label <?php echo ($val == "hidden" ? "hide" : ""); ?>"><?php echo ucfirst($key); ?></label>
+				<label class="col-sm-2 control-label <?php echo ($val == "hidden" ? "hide" : ""); ?>"><?php echo str_replace("_"," ",ucfirst($key)); ?></label>
 				<div class="col-sm-10">
 					<?php 
-						echo $this->inputfields->defineInput($key,(!empty($data[$key]) ? $data[$key] : ""),array("placeHolder"=>$key,"type"=>$val,"class"=>"form-control"));
+						echo $this->inputfields->defineInput($key,(!empty($data[$key]) ? $data[$key] : ""),array("placeHolder"=>str_replace("_"," ",ucfirst($key)),"type"=>$val,"class"=>"form-control"));
 					?>
 				</div>
 			  </div>

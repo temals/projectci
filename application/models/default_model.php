@@ -29,50 +29,16 @@ class Default_model extends CI_Model
 		
         if(is_array($table))
         {
-            if(!empty($select))
-            {
-                $this->db->select($select);
-            }
-		
-            //left join table
-            $i = 0;
-            $rtable = array();
-            $count = (count($table)) - 1;
-            $first = array();
-            foreach($table as $tbl=>$field)
-            {
-                if(is_numeric(strpos($tbl,";")))
-                {
-                    $exTable = explode(";",$tbl);
-                    $alias = $exTable[1];
-                    $tbl = $exTable[0];
-                }
-                
-                if($i % 2 == 0)
-                {
-                   $rTable = array($tbl,$field,(!empty($alias) ? $alias : "")); 
-                   if($i == 0)
-                   {
-                       $getTable = (!empty($alias) ? $tbl." as ".$alias : $tbl);
-                       $first = array($tbl,$field,$alias);
-                   }
-                    
-                    if($count == $i)
-                    {
-                        $this->db->join((!empty($alias) ? $tbl." as ".$alias : $tbl), (!empty($alias) ? $alias : $tbl).".".$field." = ".(!empty($alias) ? $first[2] : $first[0]).".".$first[1], 'left');  
-                    }
-                }
-                else
-                {
-                   $this->db->join((!empty($alias) ? $tbl." as ".$alias : $tbl), (!empty($alias) ? $alias : $tbl).".".$field." = ".(!empty($alias) ? $rTable[2] : $rTable[0]).".".$rTable[1], 'left');   
-                }
-                $i++;
-            }
-            
-            $table = $getTable;
+            (!empty($select) ? $this->db->select($select) : "");
+            $this->setJoin($table);
+            $query = $this->db->get();
+        }
+        else
+        {
+            $query = $this->db->get($table);
         }
 		
-        $query = $this->db->get($table);
+        
         
 		if($dataType == "array")
 		{
@@ -86,6 +52,54 @@ class Default_model extends CI_Model
 		
 		
 	}
+    
+    private function setJoin($table="")
+    {		
+		$listsTable = (!empty($table[0]) ? $table[0] : "");
+		$listsJoin = (!empty($table[1]) ? $table[1] : "");;
+		
+		if(is_array($listsJoin))
+		{
+			for($i=0;$i<count($listsTable);$i++)
+			{
+				if($i == 0)
+				{
+					$this->db->from($listsTable[$i]);
+				}
+				else
+				{
+					$j = 1;
+					foreach($listsJoin as $key=>$val)
+					{
+						if($j == $i)
+						{
+							$this->db->join($listsTable[$i],$key."=".$val,"left");
+						}
+						$j++;
+					}
+				}
+			}
+		}
+		else
+		{
+			 $i =1;
+			foreach($table as $key=>$val)
+			{
+				if($i == 1)
+				{
+						$table = $key;
+						$field = $val;
+						$join = $table;
+				}
+				else
+				{
+						$this->db->join($key,$key.".".$val."=".$table.".".$field,"left");
+				}
+				
+				$i++;
+			}
+		}
+    }
 	
 	/* Khusus untuk save, tambahkan method baru pada library tablefield sesuai nama table, untuk memudahkan anda dalam menyimpan data, ini telah dibuat agar anda seminimalisir menuliskan kode saat menyimpan atau mengupdate data */
 	

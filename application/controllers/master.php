@@ -256,7 +256,10 @@ class Master extends CI_Controller {
 				$view	= 'master/default';
                 //menggunakan join pada query dengan mengganti table menjadi array, lihat model untuk penggunaan
 				$data 	= $this->default_model->getdata(
-					array("master_location;a"=>"parent_id","master_location;b"=>"id"),
+					array(
+                            array("master_location as a","master_location as b"),
+                            array("a.parent_id"=>"b.id")
+                    ),
 					"",
 					"array",
 					"a.*,b.location as parent_id"
@@ -291,8 +294,8 @@ class Master extends CI_Controller {
 				$data 	   = (!empty($getdata) ? $getdata : "");
 				$structure =array(
 					"merk"				=> "text",
-					"type"				=> "text",
-					"jenis"				=> "text",
+					//"type"				=> "text",
+					//"jenis"				=> "text",
 					"model"				=> "text",
 					"no_polisi"			=> "text",
 					"pemilik"			=> "text",
@@ -306,7 +309,7 @@ class Master extends CI_Controller {
 					"expired_stnk"		=> array("id"=>"date_expired_stnk"),
 					"expired_ibm"		=> array("id"=>"date_expired_ibm"),
 					"expired_sipa"		=> array("id"=>"date_expired_sipa"),
-					"driver_id"			=> "staff_lists",
+					"driver_id"			=> "driver_lists",
 					"company_id"		=> "company_lists",
 					"date"				=> array("id"=>"date"),
 					"last_modified"		=> array("id"=>"date_last_modified"),
@@ -533,7 +536,10 @@ class Master extends CI_Controller {
 				default:
 				$view = "master/default";
 				$data 	= $this->default_model->getdata(
-					array("master_staff;a"=>"company_id","master_company;b"=>"id"),
+					array(
+                            array("master_staff as a","master_company as b"),
+                            array("a.company_id"=>"b.id")
+                    ),
 					"",
 					"array",
 					"a.*,b.name as company_id"
@@ -554,12 +560,12 @@ class Master extends CI_Controller {
 		}
 
 		public function charter_price($action="",$id="")
-	{
+        {
 		$post 	= $this->input->post();
 		$action = (!empty($action) ? $action : (!empty($post['action']) ? $post['action'] : ""));
 
 			switch ($action)
-		{
+            {
 			case 'add':
 					  $view 	= "master/add";
 					  $getdata  = (!empty($id) ? $this->default_model->getData("master_charter_price",array("id"=>$id)) : "");
@@ -569,8 +575,8 @@ class Master extends CI_Controller {
 					  	"price"			   => "text",
 					  	"location_id"	   => "location_lists",
 					  	"dest_location_id" => "location_lists",
-					  	"delivery_time"	   => array("id"=>"date_delivery_time"),
-					  	"return_doc_time"  => array("id"=>"date_return_doc_time"),
+					  	"delivery_time"	   => "text",
+					  	"return_doc_time"  => "text",
 					  	"status"		   => "status_lists"
 					  	);
 				break;
@@ -591,29 +597,33 @@ class Master extends CI_Controller {
 				default:
 					$view	= 'master/default';
 					$data 	= $this->default_model->getdata(
-					array("master_charter_price;a"=>"location_id","master_location;b"=>"id"),
-                    "",
-                    "array",
-                    "a.*,b.location as location_id"
-                    );
-					
-					$structure =array(
-						"vehicle_type_id"	=> "Type",
-						"price"				=> "Price",
-						"location_id"		=> "Location ID",
-						"dest_location_id" 	=> "Location Dest",
-						"status"			=> "Status"
+                                   array(
+                                            array("master_charter_price as a","master_location as b","master_location as c","master_vehicle as d"),
+                                            array("a.location_id"=>"b.id","a.dest_location_id"=>"c.id","a.vehicle_type_id"=>"d.id")
+                                        ),
+                                    "",
+                                    "array",
+                                    "a.*,b.location as location_id,c.location as dest_location_id,d.merk as vehicle_type_id"
+                                );
+					$structure =   array(
+						              "vehicle_type_id"	=> "Type",
+						              "price"				=> "Price",
+						              "location_id"		=> "Location ID",
+						              "dest_location_id" 	=> "Location Dest",
+						              "status"			=> "Status"
 
-						);
+						          );   
 				break;
 		}
-				$parse=array(
-				"view"		=> $view,
-				"data"		=> $data,
-				"structure"	=> $structure,
-				"page"		=> 'master/charter_price'
-				);
-				$this->load->view('template',$parse);
+        
+        $parse=array(
+        "view"		=> $view,
+        "data"		=> $data,
+        "structure"	=> $structure,
+        "page"		=> 'master/charter_price'
+        );
+        
+        $this->load->view('template',$parse);
 	}
 
 }

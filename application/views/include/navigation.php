@@ -55,7 +55,7 @@
 				<ul class="dropdown-menu">
 					<li><?php echo anchor("#","Profile"); ?></li>
 					<li><?php echo anchor("#","General Settings"); ?></li>
-					<li><?php echo anchor("#","System Previlage"); ?></li>
+					<li><?php echo anchor("setting/privilege","System Privilege"); ?></li>
 				</ul>
 			</a>
 		</li>
