@@ -23,8 +23,8 @@
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 			  Accounting <span class="caret"></span>
 				<ul class="dropdown-menu">
-					<li><?php echo anchor("#","Jurnal"); ?></li>
-					<li><?php echo anchor("#","Invoice"); ?></li>
+					<li><?php echo anchor("jurnal","Jurnal"); ?></li>
+					<li><?php echo anchor("invoice","Invoice"); ?></li>
 					<li><?php echo anchor("#","Faktur pajak"); ?></li>
 				</ul>
 			</a>
