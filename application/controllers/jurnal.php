@@ -33,7 +33,7 @@ class Jurnal extends CI_Controller {
 					if(count($post['coa_id']) > 1)
                {
                     $data['no_jurnal'] = $post['no_jurnal'];
-                    for($i=1;$i<count($post['coa_id']);$i++)
+                    for($i=1; $i<count($post['coa_id']); $i++)
                     {
                         $data['coa_id'] = $post['coa_id'][$i];
                         $data['debit']  = $post['debit'][$i];
@@ -48,7 +48,16 @@ class Jurnal extends CI_Controller {
 			break;
 			
 			default:
-				$data = $this->default_model->getData("jurnal","","array");
+				$data = $this->default_model->getData(
+					array(
+					array("jurnal as a","master_coa as b"),
+					array("a.coa_id"=>"b.id")
+					),
+
+					"",
+					"array",
+					"a.*,b.name as coa_id"
+				);
 				$view = 'jurnal/default';
 			break;
 		}
