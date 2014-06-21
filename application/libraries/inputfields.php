@@ -74,6 +74,14 @@ class inputfields
 		return $this->setlist($name,$options,$value,$parameters);
     }
 
+    function coa_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select = array("id","name");
+		$options= $this->ci->default_model->getdata("master_coa","","array");
+		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
+		return $this->setlist($name,$options,$value,$parameters,$select);
+	}
+
 	function gender_lists($name="",$value="",$parameters="",$label="")
 	{
 		$options = array(""=>"Select Gender","Pria"=>"Pria","Wanita"=>"Wanita");
@@ -149,6 +157,22 @@ class inputfields
 	{
 		$select = array("id","name");
 		$options = $this->ci->default_model->getdata("master_staff",array("status"=>"Active"),"array");
+		return $this->setlist($name,$options,$value,$parameters,$select);
+	}
+
+	function transaction_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select  = array("id","master_price_id");
+		$options = $this->ci->default_model->getdata("transaction_detail_price","","array");
+		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
+		return $this->setlist($name,$options,$value,$parameters,$select);
+	}
+
+	function faktur_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select  = array("id","no_faktur");
+		$options = $this->ci->default_model->getdata("master_faktur_pajak",array("status"=>"Available"),"array");
+		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
 		return $this->setlist($name,$options,$value,$parameters,$select);
 	}
 
