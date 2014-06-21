@@ -101,7 +101,27 @@ class tablefields
 		$fields['primary'] ="id";
 		return $this->returnFields($fields,$post);
 	}
-	
+
+	function jurnal($post="")
+	{	$fields['fields']  = array("id","no_jurnal","coa_id","debit","credit","date","status");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
+
+	function invoice($post="")
+	{
+		$fields['fields'] = array("id","customer_id","no_invoice","faktur_pajak_id","due_date","payment_date","down_payment","description","user_id","date","status");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
+
+	function invoice_detail($post="")
+	{
+		$fields['fields']	= array("id","transaksi_id","charge","vat","packing","other","down_payment","amount","status");
+		$fields['primary']	= "id";
+		return $this->returnFields($fields,$post);
+	}
+
 	function returnFields($fields="",$post="")
 	{
 		$data = array();
