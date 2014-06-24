@@ -35,21 +35,22 @@ class Invoice extends CI_Controller {
 						$data['customer_id'] 		 = $post['customer_id'];
 						$data['no_invoice']  		 = $post['no_invoice'];
 						$data['faktur_pajak_id']	 = $post['faktur_pajak_id'];
-						$data['due_date']			 = $post['due_date'];
-						$data['payment_date']        = $post['payment_date'];
+						$data['due_date']		 = $post['due_date'];
+						$data['payment_date']        	 = $post['payment_date'];
 						$data['down_payment']		 = $post['down_payment'];
 						$data['description']		 = $post['description'];
-						$data['user_id']			 = $post['user_id'];
-						$data['date']				 = $post['date'];
-						$data['status']				 = $post['status'];
+						$data['user_id']		 = $post['user_id'];
+						$data['date']			 = $post['date'];
+						$data['status']			 = $post['status'];
+						$data['id'];
+						$this->default_model->store("invoice",$data);
 						for($i=1; $i<count($post['transaksi_id']); $i++)
 						{
 						
 						$data1['transaksi_id']	 = $post['transaksi_id'][$i];
-						$data['id'];
+						
 						$this->default_model->store("invoice_detail",$data1);
-						$this->default_model->store("invoice",$data);
-
+						
 						}
 	
 						
