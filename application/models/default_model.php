@@ -53,6 +53,23 @@ class Default_model extends CI_Model
 		
 	}
     
+	/* 	getQuery adalah method yang parameternya adalah query ke database sebagai alternatif jika tidak ada method
+		yang sesuai dengan query anda
+		
+		Argument
+		$query = string, contoh "SELECT DISTINCT field1 FROM TABLE1 WHERE field2='kondisi1'"
+		$callback = Boolean(true / false) default false, jika query bertipe retrieve data yang anda panggil
+					kembali datanya masukkan true
+	*/
+    function getQuery($query="",$callback=false)
+	{
+		$getQuery = $this->db->query($query);
+		if($callback == true)
+		{
+			return $getQuery->result_array();
+		}
+	}
+    
     private function setJoin($table="")
     {		
 		$listsTable = (!empty($table[0]) ? $table[0] : "");
@@ -114,11 +131,17 @@ class Default_model extends CI_Model
 				$this->db->set($data['data']);
 				$this->db->where($data['primary'],$data[$data['primary']]);
 				$this->db->update($table);
+				
+				//mengembalikan id dari data yang diupdate
+				return $data[$data['primary']];
 			}
 			else
 			{
 				$this->db->set($data['data']);
 				$this->db->insert($table);
+				
+				//mengembalikan id data yang terakhir disimpan
+				return $this->db->insert_id();
 			}
 		}
 		//$this->db->insert($table,$post);
