@@ -31,19 +31,19 @@ class Jurnal extends CI_Controller {
 
 			case 'save' :
 					if(count($post['coa_id']) > 1)
-               {
-                    $data['no_jurnal'] = $post['no_jurnal'];
-                    for($i=1; $i<count($post['coa_id']); $i++)
-                    {
-                        $data['coa_id'] = $post['coa_id'][$i];
-                        $data['debit']  = $post['debit'][$i];
-                        $data['credit'] = $post['credit'][$i];
-                        $data['date']	= $post['date'][$i];
-                        $data['id'];
-                        
-                        $this->default_model->store("jurnal",$data);
-                    }
-               }
+				   {
+						$data['no_jurnal'] = $post['no_jurnal'];
+						for($i=1; $i<count($post['coa_id']); $i++)
+						{
+							$data['coa_id'] = $post['coa_id'][$i];
+							$data['debit']  = $post['debit'][$i];
+							$data['credit'] = $post['credit'][$i];
+							$data['date']	= $post['date'][$i];
+							$data['id'];
+							
+							$this->default_model->store("jurnal",$data);
+						}
+				   }
                			redirect(site_url('jurnal/index'));
 			break;
 			
