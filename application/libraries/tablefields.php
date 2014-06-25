@@ -122,6 +122,20 @@ class tablefields
 		return $this->returnFields($fields,$post);
 	}
 
+	function shipment($post="")
+	{
+		$fields['fields'] = array("id","sppb","vehicle_id","driver_id","second_driver_id","active_location_id","description","date","penyerah","penerima","shipping_date","arrived_date","complete_date","status");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
+
+	function shipment_detail($post="")
+	{
+		$fields['fields'] = array("id","transaction_id","penyerah","penerima","date","shipping_date","arrived_date","complete_date","remark","status");
+		$fields['primary'] = "id";
+		return $this->returnFields($fields,$post);
+	}
+
 	function returnFields($fields="",$post="")
 	{
 		$data = array();

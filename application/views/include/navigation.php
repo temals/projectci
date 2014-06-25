@@ -33,7 +33,7 @@
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 			  Operasional <span class="caret"></span>
 				<ul class="dropdown-menu">
-					<li><?php echo anchor("#","Shipment"); ?></li>
+					<li><?php echo anchor("shipment","Shipment"); ?></li>
 					<li><?php echo anchor("#","Schedule"); ?></li>
 				</ul>
 			</a>

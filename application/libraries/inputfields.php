@@ -66,15 +66,15 @@ class inputfields
 		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
 		return $this->setlist($name,$options,$value,$parameters);
 	}
-    
-    function company_type_lists($name="",$value="",$parameters="",$label="")
+
+	function company_type_lists($name="",$value="",$parameters="",$label="")
 	{
 		$options = array(""=>"Select Type","Pusat"=>"Perusahaan","Cabang"=>"Perusahaan Cabang","Customer"=>"Customer","Vendor"=>"Vendor");
 		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
 		return $this->setlist($name,$options,$value,$parameters);
-    }
+	}
 
-    function coa_lists($name="",$value="",$parameters="",$label="")
+	function coa_lists($name="",$value="",$parameters="",$label="")
 	{
 		$select = array("id","name");
 		$options= $this->ci->default_model->getdata("master_coa","","array");
@@ -149,6 +149,7 @@ class inputfields
 	{
 		$select = array("id","merk");
 		$options = $this->ci->default_model->getdata("master_vehicle",array("status"=>"Active"),"array");
+		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
 		return $this->setlist($name,$options,$value,$parameters,$select);
 
 	}
@@ -157,6 +158,7 @@ class inputfields
 	{
 		$select = array("id","name");
 		$options = $this->ci->default_model->getdata("master_staff",array("status"=>"Active"),"array");
+		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
 		return $this->setlist($name,$options,$value,$parameters,$select);
 	}
 
@@ -168,12 +170,27 @@ class inputfields
 		return $this->setlist($name,$options,$value,$parameters,$select);
 	}
 
+	function transactions_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select  = array("id","no_pod");
+		$options = $this->ci->default_model->getdata("transaction","","array");
+		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
+		return $this->setlist($name,$options,$value,$parameters,$select);
+	}
+
 	function faktur_lists($name="",$value="",$parameters="",$label="")
 	{
 		$select  = array("id","no_faktur");
 		$options = $this->ci->default_model->getdata("master_faktur_pajak",array("status"=>"Available"),"array");
 		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
 		return $this->setlist($name,$options,$value,$parameters,$select);
+	}
+
+	function shipment_lists($name="",$value="",$parameters="",$label="")
+	{
+		$options = array(""=>"Select Status","Pending"=>"Pending","Shipping"=>"Shipping","Arrived"=>"Arrived","Complete"=>"Complete");
+		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
+		return $this->setlist($name,$options,$value,$parameters);
 	}
 
 	
@@ -218,73 +235,73 @@ class inputfields
 		$parameters = string,
 		$select array($key,$val)
 	*/
-	function setlist($name="",$options="",$value="",$parameters="",$select="")
-	{
-		if(!empty($select))
+		function setlist($name="",$options="",$value="",$parameters="",$select="")
 		{
-			$getOptions = array();
-			
-			$getOptions[] = "Select ".ucfirst(str_replace("id","",str_replace("_"," ",$name)));
-			foreach($options as $option)
+			if(!empty($select))
 			{
-				if(is_array($option))
+				$getOptions = array();
+
+				$getOptions[] = "Select ".ucfirst(str_replace("id","",str_replace("_"," ",$name)));
+				foreach($options as $option)
 				{
-					$getOptions[$option[$select[0]]] = $option[$select[1]];
+					if(is_array($option))
+					{
+						$getOptions[$option[$select[0]]] = $option[$select[1]];
+					}
+					else
+					{
+						$getOptions[$option->$select[0]] = $option->$select[1];
+					}
 				}
-				else
-				{
-					$getOptions[$option->$select[0]] = $option->$select[1];
-				}
+
+				$options = $getOptions;
 			}
-			
-			$options = $getOptions;
+			return form_dropdown((!empty($name) ? $name : ""), $options, (!empty($value) ? $value : ""), (!empty($parameters) ? $parameters : ""));
 		}
-		return form_dropdown((!empty($name) ? $name : ""), $options, (!empty($value) ? $value : ""), (!empty($parameters) ? $parameters : ""));
-	}
-	
+
 	/* 	to join param
 		$params = array("class"=>"form-control","placeHolder"=>"Form"),
 		$joinParams = array("class"=>"another");
 	*/
-	
-	function joinParams($params,$joinParams)
-	{
-		$getParams = array();
-		foreach($params as $pkey=>$pval)
+
+		function joinParams($params,$joinParams)
 		{
-			foreach($joinParams as $jkey=>$jval)
+			$getParams = array();
+			foreach($params as $pkey=>$pval)
 			{
-                $getParams[$jkey][] = $jval;
-            }
-            
-            $getParams[$pkey][] = $pval;
+				foreach($joinParams as $jkey=>$jval)
+				{
+					$getParams[$jkey][] = $jval;
+				}
+
+				$getParams[$pkey][] = $pval;
+			}
+
+			$setParam = array();
+			foreach($getParams as $key=>$val)
+			{            
+				$paramVal = "";
+				foreach($val as $attr)
+				{
+					if(!is_numeric(strpos($paramVal,$attr)))
+					{
+						$paramVal .= " ".$attr;
+					}
+				}
+
+				$setParam[$key] = $paramVal;
+			}
+
+			return $setParam;
 		}
-        
-        $setParam = array();
-        foreach($getParams as $key=>$val)
-        {            
-            $paramVal = "";
-            foreach($val as $attr)
-            {
-                if(!is_numeric(strpos($paramVal,$attr)))
-                {
-                    $paramVal .= " ".$attr;
-                }
-            }
-            
-            $setParam[$key] = $paramVal;
-        }
-        
-        return $setParam;
-	}
-	
-	function setStringParameter($parameters)
-	{
-		$string = "";
-		foreach($parameters as $key=>$val)
+
+		function setStringParameter($parameters)
 		{
-			$string .= $key."='".$val."' ";
+			$string = "";
+			foreach($parameters as $key=>$val)
+			{
+				$string .= $key."='".$val."' ";
+			}
+			return $string;
 		}
-		return $string;
 	}
-}

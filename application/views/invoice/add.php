@@ -1,7 +1,7 @@
 <div class='boxcontent row'>
-		<h2 class='pull-left'>Add / Edit <?php echo ucfirst($this->uri->segment(1))." ".ucfirst($this->uri->segment(2)); ?></h2>
-		<div class='pull-right'><?php echo form_submit('submit','Simpan Data','class="btn btn-success" form="invoiceForm"'); ?><?php echo anchor($page,'Kembali','class="btn btn-warning"'); ?></div>
-	</div>
+  <h2 class='pull-left'>Add / Edit <?php echo ucfirst($this->uri->segment(1))." ".ucfirst($this->uri->segment(2)); ?></h2>
+  <div class='pull-right'><?php echo form_submit('submit','Simpan Data','class="btn btn-success" form="invoiceForm"'); ?><?php echo anchor($page,'Kembali','class="btn btn-warning"'); ?></div>
+</div>
 
 <div class='boxContent'>
     <?php echo form_open($page."/save",array("id"=>"invoiceForm")); ?>
@@ -88,31 +88,31 @@
             <td>
                 <?php echo $this->inputfields->transaction_lists("transaksi_id[]",(!empty($data['transaksi_id']) ? $data['transaksi_id'] : ""),array("placeHolder"=>"Transaksi","","class"=>"form-control")); ?>
             </td>
-        <td>
-             <a href='#' title='tes' data-toggle='tooltip'>[ ? ]</a>
-        </td>
-        </tr>
-        
-        <?php if(!empty($data)) : ?>
+            <td>
+               <a href='#' title='tes' data-toggle='tooltip'>[ ? ]</a>
+           </td>
+       </tr>
+       
+       <?php if(!empty($data)) : ?>
         <tr class='displayPrivilege'>
             <td>
                 <?php echo $this->inputfields->transaction_lists("transaksi_id[]",(!empty($data['transaksi_id']) ? $data['transaksi_id'] : ""),array("placeHolder"=>"Transaksi","","class"=>"form-control")); ?>
             </td>
-        <td>
-            <a href='#' title='tes' data-toggle='tooltip'>[ ? ]</a>
-        </td>
+            <td>
+                <a href='#' title='tes' data-toggle='tooltip'>[ ? ]</a>
+            </td>
         </tr>
 
-        <?php else : ?>
+    <?php else : ?>
         <tr class='displayPrivilege'>
             <td>
                 <?php echo $this->inputfields->transaction_lists("transaksi_id[]",(!empty($data['transaksi_id']) ? $data['transaksi_id'] : ""),array("placeHolder"=>"Transaksi","","class"=>"form-control")); ?>
             </td>
-        <td>
-            <a href='#' title='tes' data-toggle='tooltip'>[ ? ]</a>
-        </td>
+            <td>
+                <a href='#' title='tes' data-toggle='tooltip'>[ ? ]</a>
+            </td>
         </tr>
-        <?php endif; ?>
-    </table>
-    <?php echo form_close(); ?>
+    <?php endif; ?>
+</table>
+<?php echo form_close(); ?>
 </div>
