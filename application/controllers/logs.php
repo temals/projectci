@@ -12,7 +12,7 @@ class Logs extends CI_Controller {
 	{
 		$view  = 'report/log/default';
 		$data  = $this->log->get(10);
-		$structure = array("user_id"=>"User", "description"=>"Desksripsi", "datetime"=>"Date Time");
+		$structure = array("user_id"=>"User", "action"=>"Action", "description"=>"Desksripsi", "datetime"=>"Date Time");
 		$parse = array(
 			"view" => $view,
 			"data" => $data,
