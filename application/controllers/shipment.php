@@ -30,6 +30,9 @@ class Shipment extends CI_Controller {
 			break;
 			
 			case "save":
+			
+			//jika terdapat lebih dari satu transaction, dengan kata lain data clone tidak kosong
+			//jadi jika field clonenya kosong tidak disimpan ke shipment detail
 			if(count($post['transaction_id']) > 1)
 			{
 				$data['sppb'] 		 			= $post['sppb'];
@@ -46,6 +49,14 @@ class Shipment extends CI_Controller {
 				$data['complete_date']			= $post['complete_date'];
 				$data['status']				 	= $post['status'];
 
+				/* 	data di atas berbentuk array karena memiliki name yang sama dengan data detail yang
+					berbentuk array contoh penyerah[], atau shipping date[]
+					
+					agar bentuknya berbeda untuk field yang di clone ubah namenya
+					penyerah[] menajadi detial_penyerah[], dan masukkan ke dalam variable contoh
+					$detail['penyerah'] = $post['detail_penyerah']
+				*/
+				
 				for($i=1; $i<count($post['transaction_id']); $i++)
 				{
 					$data1['transaction_id'] 	= $post['transaction_id'][$i];
@@ -58,9 +69,10 @@ class Shipment extends CI_Controller {
 					$data1['status']			= $post['status'][$i];
 					$this->default_model->store("shipment_detail",$data1);			
 				}
-						
+				
+				//sebaiknya save untuk table shipment di letakkan diluar if, karena script ini tidak akan
+				//dieksekusi ketika data di field clone kosong
 				$this->default_model->store("shipment",$data);
-
 			}
 			redirect(site_url("shipment"));
 			break;
