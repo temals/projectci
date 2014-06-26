@@ -58,6 +58,10 @@ class Master extends CI_Controller {
 				if(!empty($id))
 				{
 					$this->default_model->delete("master_company",array("id"=>$id));
+					
+					//log system
+					$this->log->set("master/company",$action);
+					
 					redirect(site_url("master/company"));
 				}
 				break;
@@ -90,6 +94,9 @@ class Master extends CI_Controller {
 				}
 				else
 				{
+					//log system
+					$this->log->set("master/company",$action);
+				
 					$this->default_model->store("master_company",$post);
 					redirect(site_url("master/company"));
 				}

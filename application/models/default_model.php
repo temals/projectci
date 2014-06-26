@@ -155,7 +155,7 @@ class Default_model extends CI_Model
 		}
 	}
     
-     //melakukan pengecekan jika terdapat data yang sama pada table
+    //melakukan pengecekan jika terdapat data yang sama pada table
     function existsData($table="",$post="",$unique_fields="")
     {
         $getTable = method_exists("tablefields",$table);
@@ -169,17 +169,15 @@ class Default_model extends CI_Model
                 {
                     if(strtolower($key) == strtolower($unique))
                     {
-                        if(!empty($data['primary']))
-                        {
-                            $uniques[$key." !="] = $val;
-                        }
-                        else
-                        {
-                            $uniques[$key] = $val;
-                        }
+						$uniques[$key] = $val;
                     }
                 }
             }
+			
+			if(!empty($post[$data['primary']]))
+			{
+				$uniques[$data['primary']." !="] = $post[$data['primary']];
+			}
             
             if(!empty($uniques))
             {

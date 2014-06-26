@@ -33,6 +33,7 @@
 			<div class='container'>
 				<div class='row'>
 					<div class='col-md-10'>
+						<?php echo (!empty($alert) ? "<div class='alert alert-".(!empty($alert['type']) ? $alert['type'] : "info")."'>".$alert['msg']."</div>" : ""); ?>
 						<?php echo (!empty($view) ? $this->load->view($view) : ""); ?>
 					</div>
 					<div class='col-md-2'>
