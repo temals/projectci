@@ -43,6 +43,7 @@
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 			  Report <span class="caret"></span>
 				<ul class="dropdown-menu">
+					<li><?php echo anchor("logs","Logs")?></li>
 					<li><?php echo anchor("#","Transaksi"); ?></li>
 					<li><?php echo anchor("#","SPPB"); ?></li>
 					<li><?php echo anchor("#","Buku Besar"); ?></li>
@@ -53,6 +54,7 @@
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 			  Settings <span class="caret"></span>
 				<ul class="dropdown-menu">
+					<li><?php echo anchor("log","Logs"); ?></li>
 					<li><?php echo anchor("#","Profile"); ?></li>
 					<li><?php echo anchor("#","General Settings"); ?></li>
 					<li><?php echo anchor("setting/privilege","System Privilege"); ?></li>
