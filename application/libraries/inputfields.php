@@ -193,7 +193,28 @@ class inputfields
 		return $this->setlist($name,$options,$value,$parameters);
 	}
 
-	
+	function type_pembayaran_lists($name="",$value="",$parameters="",$label="")
+	{
+		$select  = array("id","name");
+		$options = $this->ci->default_model->getdata("master_price",array("status"=>"Active"),"array");
+		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
+		return $this->setlist($name,$options,$value,$parameters,$select);
+	}
+
+	function transport_type_lists($name="",$value="",$parameters="",$label="")
+	{
+		$options = array(""=>"Select Type","Darat"=>"Darat","Laut"=>"Laut","Udara"=>"Udara");
+		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
+		return $this->setlist($name,$options,$value,$parameters);
+	}
+
+	function master_address_lists($name="",$value="",$parameters="",$label="")
+	{
+		$options = array(""=>"Select Type","Picking"=>"Picking","Shipment"=>"Shipment","Warehouse"=>"Warehouse","Office"=>"Office");
+		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);
+		return $this->setlist($name,$options,$value,$parameters);
+	}
+
 	function text($name="",$value="",$parameters="",$label="")
 	{
 		$parameters = (is_array($parameters) ? $this->setStringParameter($parameters) : $parameters);

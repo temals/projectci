@@ -5,7 +5,10 @@
 
 <div class='boxContent'>
     <?php echo form_open($page."/save",array("id"=>"shipmentForm")); ?>
-    
+
+       <?php echo $this->inputfields->hidden("id",(!empty($data['id']) ? $data['id'] : ""),array("type"=>"hidden","","class"=>"form-control")); ?>
+
+
     <div class="form-group">
         <label class="col-sm-2 control-label">SPPB</label>
         <div class="col-sm-10">
@@ -116,15 +119,15 @@
             <td>
                 <?php echo $this->inputfields->transactions_lists("transaction_id[]",(!empty($data['transaction_id']) ? $data['transaction_id'] : ""),array("placeHolder"=>"Transaksi","","class"=>"form-control")); ?>
             </td>
-            <td><input type='text' name='penyerah[]' class='form-control' placeHolder='Penyerah'/></td>
-            <td><input type='text' name='penerima[]' class='form-control' placeHolder='Penerima'/></td>
-            <td><input type='text' name='date[]' class='form-control datepicker' placeHolder='Date'/></td>
-            <td><input type='text' name='shipping_date[]' class='form-control datepicker' placeHolder='Shipping Date'/></td>
-            <td><input type='text' name='arrived_date[]' class='form-control datepicker' placeHolder='Arrived Date'/></td>
-            <td><input type='text' name='complete_date[]' class='form-control datepicker' placeHolder='complete Date'/></td>
+            <td><input type='text' name='detail_penyerah[]' class='form-control' placeHolder='Penyerah'/></td>
+            <td><input type='text' name='detail_penerima[]' class='form-control' placeHolder='Penerima'/></td>
+            <td><input type='text' name='detail_date[]' class='form-control datepicker' placeHolder='Date'/></td>
+            <td><input type='text' name='detail_shipping_date[]' class='form-control datepicker' placeHolder='Shipping Date'/></td>
+            <td><input type='text' name='detail_arrived_date[]' class='form-control datepicker' placeHolder='Arrived Date'/></td>
+            <td><input type='text' name='detail_complete_date[]' class='form-control datepicker' placeHolder='complete Date'/></td>
             <td><input type='textarea' name='remark[]' class='form-control' placeHolder='Remark'/></td>
             <td>
-    <?php echo $this->inputfields->shipment_lists("status[]","",array("placeHolder"=>"Status","","class"=>"form-control")); ?>
+    <?php echo $this->inputfields->shipment_lists("detail_status[]","",array("placeHolder"=>"Status","","class"=>"form-control")); ?>
             </td>
         </tr>
         
@@ -133,15 +136,15 @@
            <td>
                 <?php echo $this->inputfields->transactions_lists("transaction_id[]",(!empty($data['transaction_id']) ? $data['transaction_id'] : ""),array("placeHolder"=>"Transaksi","","class"=>"form-control")); ?>
             </td>
-            <td><input type='text' name='penyerah[]' class='form-control' placeHolder='Penyerah' value="<?php echo $data['penyerah'] ?>"/></td>
-            <td><input type='text' name='penerima[]' class='form-control' placeHolder='Penerima' value="<?php echo $data['penerima'] ?>"/></td>
-            <td><input type='text' id="date" name='date[]' class='form-control datepicker' placeHolder='Date' value="<?php echo $data['date'] ?>"/></td>
-            <td><input type='text' id="date" name='shipping_date[]' class='form-control datepicker' placeHolder='Shipping Date' value="<?php echo $data['shipping_date'] ?>"/></td>
-            <td><input type='text' id="date" name='arrived_date[]' class='form-control datepicker' placeHolder='Arrived Date' value="<?php echo $data['arrived_date'] ?>"/></td>
-            <td><input type='text' id="date" name='complete_date[]' class='form-control datepicker' placeHolder='complete Date' value="<?php echo $data['complete_date'] ?>"/></td>
+            <td><input type='text' name='detail_penyerah[]' class='form-control' placeHolder='Penyerah' value="<?php echo $data['penyerah'] ?>"/></td>
+            <td><input type='text' name='detail_penerima[]' class='form-control' placeHolder='Penerima' value="<?php echo $data['penerima'] ?>"/></td>
+            <td><input type='text' id="date" name='detail_date[]' class='form-control datepicker' placeHolder='Date' value="<?php echo $data['date'] ?>"/></td>
+            <td><input type='text' id="date" name='detail_shipping_date[]' class='form-control datepicker' placeHolder='Shipping Date' value="<?php echo $data['shipping_date'] ?>"/></td>
+            <td><input type='text' id="date" name='detail_arrived_date[]' class='form-control datepicker' placeHolder='Arrived Date' value="<?php echo $data['arrived_date'] ?>"/></td>
+            <td><input type='text' id="date" name='detail_complete_date[]' class='form-control datepicker' placeHolder='complete Date' value="<?php echo $data['complete_date'] ?>"/></td>
             <td><input type='textarea' name='remark[]' class='form-control' placeHolder='Remark'/></td>
             <td>
-    <?php echo $this->inputfields->shipment_lists("status[]","",array("placeHolder"=>"Status","","class"=>"form-control")); ?>
+    <?php echo $this->inputfields->shipment_lists("detail_status[]","",array("placeHolder"=>"Status","","class"=>"form-control")); ?>
             </td>
         </tr>
 
@@ -150,15 +153,15 @@
                 <td>
                 <?php echo $this->inputfields->transactions_lists("transaction_id[]",(!empty($data['transaction_id']) ? $data['transaction_id'] : ""),array("placeHolder"=>"Transaksi","","class"=>"form-control")); ?>
             </td>
-            <td><input type='text' name='penyerah[]' class='form-control' placeHolder='Penyerah'/></td>
-            <td><input type='text' name='penerima[]' class='form-control' placeHolder='Penerima'/></td>
-            <td><input type='text' name='date[]' class='form-control datepicker' placeHolder='Date'/></td>
-            <td><input type='text' name='shipping_date[]' class='form-control datepicker' placeHolder='Shipping Date'/></td>
-            <td><input type='text' name='arrived_date[]' class='form-control datepicker' placeHolder='Arrived Date'/></td>
-            <td><input type='text' name='complete_date[]' class='form-control datepicker' placeHolder='complete Date'/></td>
+            <td><input type='text' name='detail_penyerah[]' class='form-control' placeHolder='Penyerah'/></td>
+            <td><input type='text' name='detail_penerima[]' class='form-control' placeHolder='Penerima'/></td>
+            <td><input type='text' name='detail_date[]' class='form-control datepicker' placeHolder='Date'/></td>
+            <td><input type='text' name='detail_shipping_date[]' class='form-control datepicker' placeHolder='Shipping Date'/></td>
+            <td><input type='text' name='detail_arrived_date[]' class='form-control datepicker' placeHolder='Arrived Date'/></td>
+            <td><input type='text' name='detail_complete_date[]' class='form-control datepicker' placeHolder='complete Date'/></td>
             <td><input type='textarea' name='remark[]' class='form-control' placeHolder='Remark'/></td>
             <td>
-    <?php echo $this->inputfields->shipment_lists("status[]","",array("placeHolder"=>"Status","","class"=>"form-control")); ?>
+    <?php echo $this->inputfields->shipment_lists("detail_status[]","",array("placeHolder"=>"Status","","class"=>"form-control")); ?>
             </td>
         </tr>
         <?php endif; ?>

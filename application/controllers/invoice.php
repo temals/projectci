@@ -32,6 +32,7 @@ class Invoice extends CI_Controller {
 			case 'save':
 			if(count($post['transaksi_id']) > 1)
 			{
+				$data['id']					 = $post['id'];
 				$data['customer_id'] 		 = $post['customer_id'];
 				$data['no_invoice']  		 = $post['no_invoice'];
 				$data['faktur_pajak_id']	 = $post['faktur_pajak_id'];

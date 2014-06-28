@@ -32,6 +32,7 @@ class Jurnal extends CI_Controller {
 			case 'save' :
 					if(count($post['coa_id']) > 1)
 				   {
+				   		$data['id']		   = $post['id'];
 						$data['no_jurnal'] = $post['no_jurnal'];
 						for($i=1; $i<count($post['coa_id']); $i++)
 						{

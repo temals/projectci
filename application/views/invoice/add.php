@@ -6,6 +6,9 @@
 <div class='boxContent'>
     <?php echo form_open($page."/save",array("id"=>"invoiceForm")); ?>
     
+    <?php echo $this->inputfields->hidden("id",(!empty($data['id']) ? $data['id'] : ""),array("type"=>"hidden","","class"=>"form-control")); ?>
+
+
     <div class="form-group">
         <label class="col-sm-2 control-label">Customer</label>
         <div class="col-sm-10">

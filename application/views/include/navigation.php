@@ -18,7 +18,7 @@
 				</ul>
 			</a>
 		</li>
-		<li><?php echo anchor("#","Transaction"); ?></li>
+		<li><?php echo anchor("transaction","Transaction"); ?></li>
 		<li class="dropdown">
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 			  Accounting <span class="caret"></span>

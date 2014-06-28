@@ -30,11 +30,9 @@ class Shipment extends CI_Controller {
 			break;
 			
 			case "save":
-			
-			//jika terdapat lebih dari satu transaction, dengan kata lain data clone tidak kosong
-			//jadi jika field clonenya kosong tidak disimpan ke shipment detail
 			if(count($post['transaction_id']) > 1)
 			{
+				$data['id']						= $post['id'];
 				$data['sppb'] 		 			= $post['sppb'];
 				$data['vehicle_id']  		 	= $post['vehicle_id'];
 				$data['driver_id']	 			= $post['driver_id'];
@@ -49,31 +47,24 @@ class Shipment extends CI_Controller {
 				$data['complete_date']			= $post['complete_date'];
 				$data['status']				 	= $post['status'];
 
-				/* 	data di atas berbentuk array karena memiliki name yang sama dengan data detail yang
-					berbentuk array contoh penyerah[], atau shipping date[]
-					
-					agar bentuknya berbeda untuk field yang di clone ubah namenya
-					penyerah[] menajadi detial_penyerah[], dan masukkan ke dalam variable contoh
-					$detail['penyerah'] = $post['detail_penyerah']
-				*/
-				
 				for($i=1; $i<count($post['transaction_id']); $i++)
 				{
 					$data1['transaction_id'] 	= $post['transaction_id'][$i];
-					$data1['penyerah']			= $post['penyerah'][$i];
-					$data1['penerima']			= $post['penerima'][$i];
-					$data1['shipping_date']		= $post['shipping_date'][$i];
-					$data1['arrived_date']		= $post['arrived_date'][$i];
-					$data1['complete_date']		= $post['complete_date'][$i];
-					$data1['remark']			= $post['remark'][$i];
-					$data1['status']			= $post['status'][$i];
+					$data1['penyerah']			= $post['detail_penyerah'][$i];
+					$data1['penerima']			= $post['detail_penerima'][$i];
+					$data1['date']				= $post['detail_date'][$i];
+					$data1['shipping_date']		= $post['detail_shipping_date'][$i];
+					$data1['arrived_date']		= $post['detail_arrived_date'][$i];
+					$data1['complete_date']		= $post['detail_complete_date'][$i];
+					$data1['remark']			= $post['detail_remark'][$i];
+					$data1['status']			= $post['detail_status'][$i];
 					$this->default_model->store("shipment_detail",$data1);			
 				}
 				
-				//sebaiknya save untuk table shipment di letakkan diluar if, karena script ini tidak akan
-				//dieksekusi ketika data di field clone kosong
-				$this->default_model->store("shipment",$data);
 			}
+
+			$this->default_model->store("shipment",$data);
+
 			redirect(site_url("shipment"));
 			break;
 
