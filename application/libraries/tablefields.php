@@ -4,7 +4,7 @@ class tablefields
 {
 	function master_company($post="")
 	{
-		$fields['fields'] = array("id","type","name","address","npwp","phone","mobile","fax","email","bank","status");
+		$fields['fields'] = array("id","type","name","address","location_id","npwp","phone","mobile","fax","email","bank","status");
 		$fields['primary'] = "id";
 		return $this->returnFields($fields,$post);
 	}
