@@ -1,9 +1,6 @@
 <div class='boxContent'>
-	<?php echo anchor("dashboard","Pembagian Tugas Project"); ?>
+	Tidak Ada Notification
 </div>
-
-<div class='alert alert-danger'>Untuk mengaktifkan library log (lihat aplication/library/log), </div>
-<div class='alert alert-info'>contoh penggunaan log pada controller master/company</div>
 
 <div class='boxContent' id='log'>
 	<?php
